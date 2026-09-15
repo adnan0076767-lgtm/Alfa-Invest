@@ -1,0 +1,1939 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>ALFA INVEST | Investment Simulator</title>
+<meta name="description" content="ALFA INVEST adalah aplikasi simulasi investasi modern dengan saldo virtual dan portfolio digital.">
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+:root{
+  --bg:#f5f7fb;
+  --card:#ffffff;
+  --text:#172033;
+  --muted:#758096;
+  --line:#e7ebf2;
+  --primary:#246bfe;
+  --primary2:#4f8cff;
+  --green:#10a86b;
+  --red:#e94f64;
+  --shadow:0 12px 35px rgba(30,50,90,.08);
+}
+
+body.dark{
+  --bg:#0b1220;
+  --card:#121b2d;
+  --text:#f1f5ff;
+  --muted:#91a0b8;
+  --line:#263248;
+  --shadow:0 12px 35px rgba(0,0,0,.25);
+}
+
+body{
+  font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  transition:.25s;
+}
+
+button,input{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+  border:0;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:245px;
+  background:var(--card);
+  border-right:1px solid var(--line);
+  padding:25px 16px;
+  position:fixed;
+  left:0;
+  top:0;
+  bottom:0;
+  z-index:20;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:0 10px 28px;
+}
+
+.logo-icon{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  background:linear-gradient(135deg,var(--primary),#6c9cff);
+  color:white;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  font-size:19px;
+  box-shadow:0 8px 20px rgba(36,107,254,.25);
+}
+
+.logo h2{
+  font-size:20px;
+  letter-spacing:-.5px;
+}
+
+.logo small{
+  display:block;
+  color:var(--muted);
+  font-size:9px;
+  margin-top:2px;
+  letter-spacing:1.2px;
+}
+
+.nav{
+  display:grid;
+  gap:7px;
+}
+
+.nav button{
+  width:100%;
+  text-align:left;
+  padding:13px 14px;
+  border-radius:12px;
+  background:transparent;
+  color:var(--muted);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  font-weight:650;
+  transition:.2s;
+}
+
+.nav button:hover{
+  background:rgba(36,107,254,.08);
+  color:var(--primary);
+}
+
+.nav button.active{
+  background:rgba(36,107,254,.11);
+  color:var(--primary);
+}
+
+.nav-icon{
+  width:22px;
+  text-align:center;
+  font-size:17px;
+}
+
+.demo-note{
+  position:absolute;
+  bottom:20px;
+  left:16px;
+  right:16px;
+  padding:14px;
+  border-radius:14px;
+  background:rgba(36,107,254,.08);
+  font-size:11px;
+  color:var(--muted);
+  line-height:1.5;
+}
+
+/* MAIN */
+.main{
+  margin-left:245px;
+  width:calc(100% - 245px);
+  padding:25px;
+}
+
+.topbar{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:24px;
+}
+
+.greeting h1{
+  font-size:27px;
+  letter-spacing:-.8px;
+}
+
+.greeting p{
+  color:var(--muted);
+  margin-top:4px;
+  font-size:13px;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.icon-btn{
+  width:42px;
+  height:42px;
+  border-radius:12px;
+  background:var(--card);
+  color:var(--text);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+
+.avatar{
+  width:42px;
+  height:42px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#246bfe,#7ba6ff);
+  color:#fff;
+  display:grid;
+  place-items:center;
+  font-weight:800;
+}
+
+/* DASHBOARD */
+.page{
+  display:none;
+}
+
+.page.active{
+  display:block;
+}
+
+.hero{
+  background:linear-gradient(135deg,#246bfe,#4e8cff);
+  color:#fff;
+  border-radius:22px;
+  padding:27px;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 15px 35px rgba(36,107,254,.2);
+}
+
+.hero:after{
+  content:"";
+  position:absolute;
+  width:260px;
+  height:260px;
+  border-radius:50%;
+  border:45px solid rgba(255,255,255,.07);
+  right:-75px;
+  top:-100px;
+}
+
+.hero-label{
+  font-size:12px;
+  opacity:.82;
+}
+
+.hero-balance{
+  font-size:34px;
+  font-weight:850;
+  margin:7px 0 5px;
+  letter-spacing:-1px;
+}
+
+.hero-sub{
+  font-size:12px;
+  opacity:.82;
+}
+
+.hero-actions{
+  display:flex;
+  gap:9px;
+  margin-top:20px;
+}
+
+.hero-actions button{
+  padding:10px 15px;
+  border-radius:10px;
+  background:#fff;
+  color:#246bfe;
+  font-weight:750;
+}
+
+.hero-actions button.secondary{
+  background:rgba(255,255,255,.14);
+  color:#fff;
+  border:1px solid rgba(255,255,255,.25);
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:16px;
+  margin-top:18px;
+}
+
+.stat-card,
+.card{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:18px;
+  box-shadow:var(--shadow);
+}
+
+.stat-card{
+  padding:19px;
+}
+
+.stat-title{
+  color:var(--muted);
+  font-size:12px;
+}
+
+.stat-value{
+  font-size:20px;
+  font-weight:800;
+  margin-top:8px;
+}
+
+.green{
+  color:var(--green);
+}
+
+.red{
+  color:var(--red);
+}
+
+.content-grid{
+  display:grid;
+  grid-template-columns:1.4fr 1fr;
+  gap:18px;
+  margin-top:18px;
+}
+
+.card-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:19px 19px 10px;
+}
+
+.card-head h3{
+  font-size:16px;
+}
+
+.card-head span{
+  color:var(--primary);
+  font-size:12px;
+  cursor:pointer;
+  font-weight:700;
+}
+
+.chart-wrap{
+  padding:8px 18px 20px;
+}
+
+canvas{
+  width:100%;
+  height:240px;
+}
+
+/* MARKET */
+.market-tools{
+  display:flex;
+  gap:10px;
+  margin-bottom:17px;
+}
+
+.search{
+  flex:1;
+  position:relative;
+}
+
+.search input{
+  width:100%;
+  padding:13px 15px 13px 42px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  background:var(--card);
+  color:var(--text);
+  outline:none;
+}
+
+.search span{
+  position:absolute;
+  left:15px;
+  top:12px;
+}
+
+.market-list{
+  display:grid;
+  gap:10px;
+}
+
+.asset{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:16px;
+  border:1px solid var(--line);
+  background:var(--card);
+  border-radius:15px;
+  transition:.2s;
+}
+
+.asset:hover{
+  transform:translateY(-1px);
+  box-shadow:var(--shadow);
+}
+
+.asset-left{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.coin{
+  width:42px;
+  height:42px;
+  border-radius:13px;
+  display:grid;
+  place-items:center;
+  font-weight:900;
+  background:rgba(36,107,254,.1);
+  color:var(--primary);
+}
+
+.asset-name{
+  font-weight:750;
+}
+
+.asset-code{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.asset-price{
+  text-align:right;
+}
+
+.price{
+  font-weight:750;
+}
+
+.change{
+  font-size:11px;
+  margin-top:4px;
+}
+
+.asset-actions{
+  display:flex;
+  gap:6px;
+  margin-left:14px;
+}
+
+.buy,
+.sell{
+  padding:8px 12px;
+  border-radius:9px;
+  font-size:11px;
+  font-weight:800;
+}
+
+.buy{
+  background:rgba(16,168,107,.1);
+  color:var(--green);
+}
+
+.sell{
+  background:rgba(233,79,100,.1);
+  color:var(--red);
+}
+
+/* PORTFOLIO */
+.portfolio-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:16px;
+}
+
+.port-card{
+  padding:18px;
+}
+
+.holding{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.holding:last-child{
+  border-bottom:0;
+}
+
+.holding-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.holding-icon{
+  width:38px;
+  height:38px;
+  border-radius:11px;
+  background:rgba(36,107,254,.1);
+  color:var(--primary);
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:900;
+}
+
+.holding-name{
+  font-weight:700;
+  font-size:13px;
+}
+
+.holding-qty{
+  color:var(--muted);
+  font-size:10px;
+  margin-top:3px;
+}
+
+.holding-value{
+  text-align:right;
+  font-weight:750;
+  font-size:13px;
+}
+
+.holding-profit{
+  font-size:10px;
+  margin-top:3px;
+}
+
+/* TRANSACTIONS */
+.transaction{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:14px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.transaction:last-child{
+  border-bottom:0;
+}
+
+.tx-left{
+  display:flex;
+  gap:11px;
+  align-items:center;
+}
+
+.tx-icon{
+  width:36px;
+  height:36px;
+  border-radius:10px;
+  display:grid;
+  place-items:center;
+  font-size:12px;
+  font-weight:800;
+}
+
+.tx-buy{
+  background:rgba(16,168,107,.1);
+  color:var(--green);
+}
+
+.tx-sell{
+  background:rgba(233,79,100,.1);
+  color:var(--red);
+}
+
+.tx-name{
+  font-weight:700;
+  font-size:13px;
+}
+
+.tx-date{
+  font-size:10px;
+  color:var(--muted);
+  margin-top:3px;
+}
+
+.tx-value{
+  font-size:13px;
+  font-weight:750;
+}
+
+/* MODAL */
+.modal{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.48);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  z-index:100;
+  padding:18px;
+}
+
+.modal.show{
+  display:flex;
+}
+
+.modal-box{
+  width:min(430px,100%);
+  background:var(--card);
+  border-radius:20px;
+  padding:23px;
+  box-shadow:0 25px 70px rgba(0,0,0,.25);
+}
+
+.modal-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.close{
+  width:34px;
+  height:34px;
+  border-radius:10px;
+  background:var(--bg);
+  color:var(--text);
+}
+
+.order-asset{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin-bottom:18px;
+}
+
+.order-info strong{
+  display:block;
+}
+
+.order-info small{
+  color:var(--muted);
+}
+
+.order-type{
+  display:flex;
+  gap:7px;
+  margin-bottom:15px;
+}
+
+.order-type button{
+  flex:1;
+  padding:10px;
+  border-radius:10px;
+  background:var(--bg);
+  color:var(--muted);
+  font-weight:750;
+}
+
+.order-type button.active.buy-type{
+  background:rgba(16,168,107,.12);
+  color:var(--green);
+}
+
+.order-type button.active.sell-type{
+  background:rgba(233,79,100,.12);
+  color:var(--red);
+}
+
+.field{
+  margin-bottom:14px;
+}
+
+.field label{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.field input{
+  width:100%;
+  padding:12px;
+  border-radius:11px;
+  border:1px solid var(--line);
+  background:var(--bg);
+  color:var(--text);
+  outline:none;
+}
+
+.order-summary{
+  background:var(--bg);
+  border-radius:12px;
+  padding:13px;
+  margin:15px 0;
+  font-size:12px;
+}
+
+.summary-row{
+  display:flex;
+  justify-content:space-between;
+  margin:6px 0;
+}
+
+.order-submit{
+  width:100%;
+  padding:13px;
+  border-radius:11px;
+  color:white;
+  background:var(--primary);
+  font-weight:800;
+}
+
+/* MOBILE */
+.mobile-nav{
+  display:none;
+}
+
+@media(max-width:900px){
+  .sidebar{
+    width:75px;
+    padding:18px 9px;
+  }
+
+  .logo{
+    justify-content:center;
+    padding:0 0 25px;
+  }
+
+  .logo h2,
+  .logo small,
+  .nav button span:not(.nav-icon),
+  .demo-note{
+    display:none;
+  }
+
+  .nav button{
+    justify-content:center;
+    padding:13px 5px;
+  }
+
+  .main{
+    margin-left:75px;
+    width:calc(100% - 75px);
+  }
+
+  .content-grid{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:650px){
+  .sidebar{
+    display:none;
+  }
+
+  .main{
+    margin-left:0;
+    width:100%;
+    padding:15px;
+    padding-bottom:85px;
+  }
+
+  .topbar{
+    margin-bottom:17px;
+  }
+
+  .greeting h1{
+    font-size:22px;
+  }
+
+  .hero{
+    border-radius:18px;
+    padding:21px;
+  }
+
+  .hero-balance{
+    font-size:29px;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  .content-grid,
+  .portfolio-grid{
+    grid-template-columns:1fr;
+  }
+
+  .asset{
+    align-items:flex-start;
+    gap:10px;
+  }
+
+  .asset-actions{
+    margin-left:0;
+  }
+
+  .mobile-nav{
+    display:flex;
+    position:fixed;
+    bottom:0;
+    left:0;
+    right:0;
+    height:67px;
+    background:var(--card);
+    border-top:1px solid var(--line);
+    z-index:50;
+    justify-content:space-around;
+  }
+
+  .mobile-nav button{
+    background:none;
+    color:var(--muted);
+    font-size:10px;
+    font-weight:700;
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    align-items:center;
+    justify-content:center;
+  }
+
+  .mobile-nav button.active{
+    color:var(--primary);
+  }
+
+  .mobile-nav b{
+    font-size:18px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+
+  <div class="logo">
+    <div class="logo-icon">A</div>
+    <div>
+      <h2>ALFA INVEST</h2>
+      <small>INVESTMENT SIMULATOR</small>
+    </div>
+  </div>
+
+  <nav class="nav">
+    <button class="active" onclick="showPage('dashboard',this)">
+      <span class="nav-icon">⌂</span><span>Dashboard</span>
+    </button>
+
+    <button onclick="showPage('market',this)">
+      <span class="nav-icon">◈</span><span>Market</span>
+    </button>
+
+    <button onclick="showPage('portfolio',this)">
+      <span class="nav-icon">▥</span><span>Portfolio</span>
+    </button>
+
+    <button onclick="showPage('history',this)">
+      <span class="nav-icon">↕</span><span>Riwayat</span>
+    </button>
+  </nav>
+
+  <div class="demo-note">
+    <strong>MODE SIMULASI</strong><br>
+    Seluruh saldo dan transaksi di aplikasi ini menggunakan uang virtual.
+  </div>
+
+</aside>
+
+<!-- MAIN -->
+<main class="main">
+
+<header class="topbar">
+  <div class="greeting">
+    <h1 id="pageTitle">Dashboard</h1>
+    <p>Kelola portfolio investasi virtual Anda.</p>
+  </div>
+
+  <div class="top-actions">
+    <button class="icon-btn" onclick="toggleDark()" title="Dark Mode">◐</button>
+    <div class="avatar">A</div>
+  </div>
+</header>
+
+<!-- DASHBOARD -->
+<section id="dashboard" class="page active">
+
+  <div class="hero">
+    <div class="hero-label">TOTAL PORTFOLIO</div>
+    <div class="hero-balance" id="heroBalance">Rp10.000.000</div>
+    <div class="hero-sub">
+      Saldo tersedia <strong id="heroCash">Rp10.000.000</strong>
+    </div>
+
+    <div class="hero-actions">
+      <button onclick="showPage('market')">Mulai Investasi</button>
+      <button class="secondary" onclick="showPage('portfolio')">Lihat Portfolio</button>
+    </div>
+  </div>
+
+  <div class="stats">
+
+    <div class="stat-card">
+      <div class="stat-title">Total Profit</div>
+      <div class="stat-value green" id="totalProfit">Rp0</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">Return</div>
+      <div class="stat-value green" id="totalReturn">0,00%</div>
+    </div>
+
+    <div class="stat-card">
+      <div class="stat-title">Aset Dimiliki</div>
+      <div class="stat-value" id="assetCount">0</div>
+    </div>
+
+  </div>
+
+  <div class="content-grid">
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Performa Portfolio</h3>
+        <span>1 Tahun</span>
+      </div>
+
+      <div class="chart-wrap">
+        <canvas id="chart"></canvas>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h3>Aktivitas Terbaru</h3>
+        <span onclick="showPage('history')">Lihat Semua</span>
+      </div>
+
+      <div id="recentTransactions" style="padding:0 19px 15px"></div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- MARKET -->
+<section id="market" class="page">
+
+  <div class="market-tools">
+    <div class="search">
+      <span>⌕</span>
+      <input id="searchInput" oninput="renderMarket()" placeholder="Cari aset...">
+    </div>
+  </div>
+
+  <div class="market-list" id="marketList"></div>
+
+</section>
+
+<!-- PORTFOLIO -->
+<section id="portfolio" class="page">
+
+  <div class="portfolio-grid">
+
+    <div class="card port-card">
+      <div class="card-head" style="padding:0 0 10px">
+        <h3>Aset Saya</h3>
+        <span id="portfolioTotal">Rp0</span>
+      </div>
+
+      <div id="holdings"></div>
+    </div>
+
+    <div class="card port-card">
+      <div class="card-head" style="padding:0 0 10px">
+        <h3>Saldo Tersedia</h3>
+      </div>
+
+      <div style="font-size:28px;font-weight:850;margin:8px 0 20px" id="portfolioCash">
+        Rp10.000.000
+      </div>
+
+      <div style="font-size:12px;color:var(--muted);line-height:1.7">
+        Saldo virtual dapat digunakan untuk membeli aset simulasi.
+        Tidak ada uang nyata yang diproses.
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- HISTORY -->
+<section id="history" class="page">
+
+  <div class="card" style="padding:0 19px">
+    <div class="card-head" style="padding-left:0;padding-right:0">
+      <h3>Riwayat Transaksi</h3>
+      <span onclick="resetSimulation()">Reset Simulasi</span>
+    </div>
+
+    <div id="transactions"></div>
+  </div>
+
+</section>
+
+</main>
+</div>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav">
+  <button class="active" onclick="mobilePage('dashboard',this)">
+    <b>⌂</b>Home
+  </button>
+  <button onclick="mobilePage('market',this)">
+    <b>◈</b>Market
+  </button>
+  <button onclick="mobilePage('portfolio',this)">
+    <b>▥</b>Portfolio
+  </button>
+  <button onclick="mobilePage('history',this)">
+    <b>↕</b>Riwayat
+  </button>
+</nav>
+
+<!-- ORDER MODAL -->
+<div class="modal" id="orderModal">
+
+  <div class="modal-box">
+
+    <div class="modal-top">
+      <h3 id="modalTitle">Beli Aset</h3>
+      <button class="close" onclick="closeModal()">×</button>
+    </div>
+
+    <div class="order-asset">
+      <div class="coin" id="modalIcon">BBCA</div>
+      <div class="order-info">
+        <strong id="modalAssetName">Bank Central Asia</strong>
+        <small id="modalPrice">Rp8.750</small>
+      </div>
+    </div>
+
+    <div class="order-type">
+      <button id="buyType" class="active buy-type" onclick="setOrderType('buy')">BELI</button>
+      <button id="sellType" class="sell-type" onclick="setOrderType('sell')">JUAL</button>
+    </div>
+
+    <div class="field">
+      <label>Jumlah Unit</label>
+      <input id="quantity" type="number" min="1" value="1" oninput="updateOrderSummary()">
+    </div>
+
+    <div class="order-summary">
+      <div class="summary-row">
+        <span>Harga</span>
+        <strong id="summaryPrice">Rp0</strong>
+      </div>
+      <div class="summary-row">
+        <span>Unit</span>
+        <strong id="summaryQty">1</strong>
+      </div>
+      <div class="summary-row">
+        <span>Total</span>
+        <strong id="summaryTotal">Rp0</strong>
+      </div>
+    </div>
+
+    <button class="order-submit" id="submitOrder" onclick="executeOrder()">
+      Konfirmasi Pembelian
+    </button>
+
+  </div>
+
+</div>
+
+<script>
+
+/* =========================
+   DATA
+========================= */
+
+const assets = [
+  {
+    code:"BBCA",
+    name:"Bank Central Asia",
+    price:8750,
+    change:1.82
+  },
+  {
+    code:"BBRI",
+    name:"Bank Rakyat Indonesia",
+    price:5025,
+    change:0.94
+  },
+  {
+    code:"BMRI",
+    name:"Bank Mandiri",
+    price:6175,
+    change:-0.41
+  },
+  {
+    code:"TLKM",
+    name:"Telkom Indonesia",
+    price:2850,
+    change:1.13
+  },
+  {
+    code:"ANTM",
+    name:"Aneka Tambang",
+    price:3120,
+    change:-1.25
+  },
+  {
+    code:"GOTO",
+    name:"GoTo Gojek Tokopedia",
+    price:72,
+    change:2.76
+  },
+  {
+    code:"BTC",
+    name:"Bitcoin",
+    price:985000000,
+    change:2.41
+  },
+  {
+    code:"ETH",
+    name:"Ethereum",
+    price:54800000,
+    change:1.64
+  }
+];
+
+/* =========================
+   STATE
+========================= */
+
+let state = JSON.parse(localStorage.getItem("alfaInvest")) || {
+  cash:10000000,
+  holdings:{},
+  transactions:[]
+};
+
+let selectedAsset = null;
+let orderType = "buy";
+
+/* =========================
+   FORMAT
+========================= */
+
+function rupiah(number){
+
+  return new Intl.NumberFormat("id-ID",{
+    style:"currency",
+    currency:"IDR",
+    maximumFractionDigits:0
+  }).format(number);
+
+}
+
+function numberFormat(number){
+
+  return new Intl.NumberFormat("id-ID").format(number);
+
+}
+
+function save(){
+
+  localStorage.setItem(
+    "alfaInvest",
+    JSON.stringify(state)
+  );
+
+}
+
+/* =========================
+   NAVIGATION
+========================= */
+
+function showPage(id,button){
+
+  document.querySelectorAll(".page")
+    .forEach(p=>p.classList.remove("active"));
+
+  document.getElementById(id)
+    .classList.add("active");
+
+  document.querySelectorAll(".nav button")
+    .forEach(b=>b.classList.remove("active"));
+
+  if(button){
+    button.classList.add("active");
+  }
+
+  const titles = {
+    dashboard:"Dashboard",
+    market:"Market",
+    portfolio:"Portfolio",
+    history:"Riwayat Transaksi"
+  };
+
+  document.getElementById("pageTitle").textContent =
+    titles[id] || "ALFA INVEST";
+
+  if(id==="dashboard") renderDashboard();
+  if(id==="market") renderMarket();
+  if(id==="portfolio") renderPortfolio();
+  if(id==="history") renderHistory();
+
+}
+
+function mobilePage(id,button){
+
+  document.querySelectorAll(".mobile-nav button")
+    .forEach(b=>b.classList.remove("active"));
+
+  button.classList.add("active");
+
+  showPage(id);
+
+}
+
+/* =========================
+   TOTAL PORTFOLIO
+========================= */
+
+function portfolioValue(){
+
+  let total = state.cash;
+
+  Object.keys(state.holdings).forEach(code=>{
+
+    const asset = assets.find(a=>a.code===code);
+
+    if(asset){
+      total += state.holdings[code].qty * asset.price;
+    }
+
+  });
+
+  return total;
+
+}
+
+function investedValue(){
+
+  let total = 0;
+
+  Object.keys(state.holdings).forEach(code=>{
+
+    const asset = assets.find(a=>a.code===code);
+
+    if(asset){
+      total += state.holdings[code].qty * asset.price;
+    }
+
+  });
+
+  return total;
+
+}
+
+/* =========================
+   DASHBOARD
+========================= */
+
+function renderDashboard(){
+
+  const total = portfolioValue();
+  const profit = total - 10000000;
+  const percent = (profit / 10000000) * 100;
+
+  document.getElementById("heroBalance").textContent =
+    rupiah(total);
+
+  document.getElementById("heroCash").textContent =
+    rupiah(state.cash);
+
+  document.getElementById("totalProfit").textContent =
+    (profit >= 0 ? "+" : "") + rupiah(profit);
+
+  document.getElementById("totalProfit").className =
+    "stat-value " + (profit >= 0 ? "green" : "red");
+
+  document.getElementById("totalReturn").textContent =
+    (percent >= 0 ? "+" : "") +
+    percent.toFixed(2).replace(".",",") +
+    "%";
+
+  document.getElementById("assetCount").textContent =
+    Object.keys(state.holdings).filter(
+      code=>state.holdings[code].qty>0
+    ).length;
+
+  renderRecentTransactions();
+  drawChart();
+
+}
+
+/* =========================
+   MARKET
+========================= */
+
+function renderMarket(){
+
+  const search =
+    document.getElementById("searchInput")?.value
+    .toLowerCase() || "";
+
+  const list =
+    document.getElementById("marketList");
+
+  const filtered = assets.filter(asset=>
+    asset.code.toLowerCase().includes(search) ||
+    asset.name.toLowerCase().includes(search)
+  );
+
+  list.innerHTML = filtered.map(asset=>`
+
+    <div class="asset">
+
+      <div class="asset-left">
+
+        <div class="coin">
+          ${asset.code.substring(0,4)}
+        </div>
+
+        <div>
+          <div class="asset-name">${asset.name}</div>
+          <div class="asset-code">${asset.code} • Simulasi</div>
+        </div>
+
+      </div>
+
+      <div class="asset-price">
+
+        <div class="price">
+          ${rupiah(asset.price)}
+        </div>
+
+        <div class="change ${asset.change>=0?"green":"red"}">
+          ${asset.change>=0?"+":""}${asset.change}%
+        </div>
+
+      </div>
+
+      <div class="asset-actions">
+
+        <button class="buy"
+          onclick="openOrder('${asset.code}','buy')">
+          BELI
+        </button>
+
+        <button class="sell"
+          onclick="openOrder('${asset.code}','sell')">
+          JUAL
+        </button>
+
+      </div>
+
+    </div>
+
+  `).join("");
+
+}
+
+/* =========================
+   ORDER
+========================= */
+
+function openOrder(code,type){
+
+  selectedAsset =
+    assets.find(a=>a.code===code);
+
+  if(!selectedAsset) return;
+
+  orderType = type;
+
+  document.getElementById("modalTitle").textContent =
+    type==="buy" ? "Beli Aset" : "Jual Aset";
+
+  document.getElementById("modalIcon").textContent =
+    selectedAsset.code;
+
+  document.getElementById("modalAssetName").textContent =
+    selectedAsset.name;
+
+  document.getElementById("modalPrice").textContent =
+    rupiah(selectedAsset.price);
+
+  document.getElementById("quantity").value = 1;
+
+  setOrderType(type);
+
+  document.getElementById("orderModal")
+    .classList.add("show");
+
+  updateOrderSummary();
+
+}
+
+function closeModal(){
+
+  document.getElementById("orderModal")
+    .classList.remove("show");
+
+}
+
+function setOrderType(type){
+
+  orderType = type;
+
+  document.getElementById("buyType")
+    .classList.toggle("active",type==="buy");
+
+  document.getElementById("sellType")
+    .classList.toggle("active",type==="sell");
+
+  document.getElementById("submitOrder").textContent =
+    type==="buy"
+      ? "Konfirmasi Pembelian"
+      : "Konfirmasi Penjualan";
+
+  updateOrderSummary();
+
+}
+
+function updateOrderSummary(){
+
+  if(!selectedAsset) return;
+
+  let qty =
+    Math.max(
+      1,
+      Number(document.getElementById("quantity").value)||1
+    );
+
+  const total =
+    qty * selectedAsset.price;
+
+  document.getElementById("summaryPrice").textContent =
+    rupiah(selectedAsset.price);
+
+  document.getElementById("summaryQty").textContent =
+    numberFormat(qty);
+
+  document.getElementById("summaryTotal").textContent =
+    rupiah(total);
+
+}
+
+/* =========================
+   EXECUTE
+========================= */
+
+function executeOrder(){
+
+  if(!selectedAsset) return;
+
+  const qty =
+    Math.max(
+      1,
+      Number(document.getElementById("quantity").value)||1
+    );
+
+  const total =
+    qty * selectedAsset.price;
+
+  const code =
+    selectedAsset.code;
+
+  const current =
+    state.holdings[code]?.qty || 0;
+
+  if(orderType==="buy"){
+
+    if(total > state.cash){
+
+      alert("Saldo virtual tidak mencukupi.");
+
+      return;
+
+    }
+
+    state.cash -= total;
+
+    if(!state.holdings[code]){
+      state.holdings[code] = {
+        qty:0,
+        invested:0
+      };
+    }
+
+    state.holdings[code].qty += qty;
+    state.holdings[code].invested += total;
+
+  }else{
+
+    if(current < qty){
+
+      alert(
+        "Jumlah unit yang Anda miliki tidak mencukupi."
+      );
+
+      return;
+
+    }
+
+    state.cash += total;
+
+    state.holdings[code].qty -= qty;
+    state.holdings[code].invested =
+      Math.max(
+        0,
+        state.holdings[code].invested -
+        (state.holdings[code].invested / current * qty)
+      );
+
+  }
+
+  state.transactions.unshift({
+    type:orderType,
+    code,
+    name:selectedAsset.name,
+    qty,
+    price:selectedAsset.price,
+    total,
+    date:new Date().toLocaleString("id-ID")
+  });
+
+  if(
+    state.holdings[code] &&
+    state.holdings[code].qty<=0
+  ){
+    delete state.holdings[code];
+  }
+
+  save();
+
+  closeModal();
+
+  renderDashboard();
+  renderMarket();
+  renderPortfolio();
+  renderHistory();
+
+  alert(
+    orderType==="buy"
+      ? "Pembelian virtual berhasil."
+      : "Penjualan virtual berhasil."
+  );
+
+}
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+function renderPortfolio(){
+
+  const holdings =
+    document.getElementById("holdings");
+
+  const codes =
+    Object.keys(state.holdings);
+
+  let total = 0;
+
+  if(codes.length===0){
+
+    holdings.innerHTML = `
+      <div style="
+        padding:35px 10px;
+        text-align:center;
+        color:var(--muted);
+        font-size:13px;
+      ">
+        Belum ada aset.<br>
+        Mulai investasi dari menu Market.
+      </div>
+    `;
+
+  }else{
+
+    holdings.innerHTML =
+      codes.map(code=>{
+
+        const item =
+          state.holdings[code];
+
+        const asset =
+          assets.find(a=>a.code===code);
+
+        if(!asset) return "";
+
+        const value =
+          item.qty * asset.price;
+
+        total += value;
+
+        const profit =
+          value - item.invested;
+
+        return `
+
+          <div class="holding">
+
+            <div class="holding-left">
+
+              <div class="holding-icon">
+                ${code.substring(0,4)}
+              </div>
+
+              <div>
+                <div class="holding-name">
+                  ${asset.name}
+                </div>
+
+                <div class="holding-qty">
+                  ${numberFormat(item.qty)} unit
+                </div>
+              </div>
+
+            </div>
+
+            <div class="holding-value">
+
+              ${rupiah(value)}
+
+              <div class="holding-profit
+                ${profit>=0?"green":"red"}">
+
+                ${profit>=0?"+":""}${rupiah(profit)}
+
+              </div>
+
+            </div>
+
+          </div>
+
+        `;
+
+      }).join("");
+
+  }
+
+  document.getElementById("portfolioTotal").textContent =
+    rupiah(total);
+
+  document.getElementById("portfolioCash").textContent =
+    rupiah(state.cash);
+
+}
+
+/* =========================
+   HISTORY
+========================= */
+
+function renderHistory(){
+
+  const box =
+    document.getElementById("transactions");
+
+  if(state.transactions.length===0){
+
+    box.innerHTML = `
+      <div style="
+        padding:40px 0;
+        text-align:center;
+        color:var(--muted);
+        font-size:13px;
+      ">
+        Belum ada transaksi.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML =
+    state.transactions.map(tx=>`
+
+      <div class="transaction">
+
+        <div class="tx-left">
+
+          <div class="tx-icon
+            ${tx.type==="buy"?"tx-buy":"tx-sell"}">
+
+            ${tx.type==="buy"?"B":"J"}
+
+          </div>
+
+          <div>
+
+            <div class="tx-name">
+              ${tx.type==="buy"?"Beli":"Jual"} ${tx.code}
+            </div>
+
+            <div class="tx-date">
+              ${tx.date} • ${numberFormat(tx.qty)} unit
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="tx-value">
+          ${rupiah(tx.total)}
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+function renderRecentTransactions(){
+
+  const box =
+    document.getElementById("recentTransactions");
+
+  const list =
+    state.transactions.slice(0,4);
+
+  if(list.length===0){
+
+    box.innerHTML = `
+      <div style="
+        padding:25px 0;
+        text-align:center;
+        color:var(--muted);
+        font-size:12px;
+      ">
+        Belum ada aktivitas.
+      </div>
+    `;
+
+    return;
+
+  }
+
+  box.innerHTML =
+    list.map(tx=>`
+
+      <div class="transaction">
+
+        <div class="tx-left">
+
+          <div class="tx-icon
+            ${tx.type==="buy"?"tx-buy":"tx-sell"}">
+
+            ${tx.type==="buy"?"B":"J"}
+
+          </div>
+
+          <div>
+
+            <div class="tx-name">
+              ${tx.type==="buy"?"Beli":"Jual"} ${tx.code}
+            </div>
+
+            <div class="tx-date">
+              ${tx.date}
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="tx-value">
+          ${rupiah(tx.total)}
+        </div>
+
+      </div>
+
+    `).join("");
+
+}
+
+/* =========================
+   CHART
+========================= */
+
+function drawChart(){
+
+  const canvas =
+    document.getElementById("chart");
+
+  if(!canvas) return;
+
+  const ctx =
+    canvas.getContext("2d");
+
+  const rect =
+    canvas.getBoundingClientRect();
+
+  const dpr =
+    window.devicePixelRatio || 1;
+
+  canvas.width =
+    rect.width * dpr;
+
+  canvas.height =
+    rect.height * dpr;
+
+  ctx.scale(dpr,dpr);
+
+  const w = rect.width;
+  const h = rect.height;
+
+  ctx.clearRect(0,0,w,h);
+
+  const values = [
+    10000000,
+    10150000,
+    10080000,
+    10300000,
+    10200000,
+    10500000,
+    10400000,
+    10800000,
+    10700000,
+    portfolioValue()
+  ];
+
+  const min =
+    Math.min(...values) - 200000;
+
+  const max =
+    Math.max(...values) + 200000;
+
+  ctx.beginPath();
+
+  values.forEach((value,i)=>{
+
+    const x =
+      10 + (i/(values.length-1))*(w-20);
+
+    const y =
+      h-15 -
+      ((value-min)/(max-min))*(h-30);
+
+    if(i===0){
+      ctx.moveTo(x,y);
+    }else{
+      ctx.lineTo(x,y);
+    }
+
+  });
+
+  ctx.lineWidth = 3;
+  ctx.strokeStyle =
+    getComputedStyle(document.documentElement)
+      .getPropertyValue("--primary");
+
+  ctx.stroke();
+
+  values.forEach((value,i)=>{
+
+    const x =
+      10 + (i/(values.length-1))*(w-20);
+
+    const y =
+      h-15 -
+      ((value-min)/(max-min))*(h-30);
+
+    ctx.beginPath();
+    ctx.arc(x,y,4,0,Math.PI*2);
+
+    ctx.fillStyle =
+      getComputedStyle(document.documentElement)
+        .getPropertyValue("--primary");
+
+    ctx.fill();
+
+  });
+
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+function toggleDark(){
+
+  document.body.classList.toggle("dark");
+
+  localStorage.setItem(
+    "alfaDark",
+    document.body.classList.contains("dark")
+  );
+
+  drawChart();
+
+}
+
+/* =========================
+   RESET
+========================= */
+
+function resetSimulation(){
+
+  if(!confirm(
+    "Reset semua saldo, portfolio, dan transaksi?"
+  )){
+    return;
+  }
+
+  state = {
+    cash:10000000,
+    holdings:{},
+    transactions:[]
+  };
+
+  save();
+
+  renderDashboard();
+  renderMarket();
+  renderPortfolio();
+  renderHistory();
+
+  alert("Simulasi berhasil direset.");
+
+}
+
+/* =========================
+   INIT
+========================= */
+
+if(localStorage.getItem("alfaDark")==="true"){
+  document.body.classList.add("dark");
+}
+
+renderDashboard();
+renderMarket();
+renderPortfolio();
+renderHistory();
+
+window.addEventListener("resize",drawChart);
+
+</script>
+
+</body>
+</html>
