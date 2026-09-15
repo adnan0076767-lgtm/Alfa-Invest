@@ -4,8 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>ALFA INVEST | Investment Simulator</title>
-<meta name="description" content="ALFA INVEST adalah aplikasi simulasi investasi modern dengan saldo virtual dan portfolio digital.">
+<title>ALFA INVEST | Investment Platform</title>
+
+<meta name="description"
+content="ALFA INVEST - platform simulasi investasi digital dengan portfolio, market, transaksi dan dashboard modern.">
 
 <style>
 *{
@@ -15,25 +17,28 @@
 }
 
 :root{
-  --bg:#f5f7fb;
+  --bg:#f4f7fb;
   --card:#ffffff;
+  --card2:#f8faff;
   --text:#172033;
-  --muted:#758096;
-  --line:#e7ebf2;
+  --muted:#77839a;
+  --line:#e5eaf2;
   --primary:#246bfe;
-  --primary2:#4f8cff;
-  --green:#10a86b;
-  --red:#e94f64;
-  --shadow:0 12px 35px rgba(30,50,90,.08);
+  --primary2:#5c91ff;
+  --green:#0ba66f;
+  --red:#e74f67;
+  --yellow:#f5a623;
+  --shadow:0 12px 35px rgba(27,53,93,.08);
 }
 
 body.dark{
-  --bg:#0b1220;
-  --card:#121b2d;
-  --text:#f1f5ff;
+  --bg:#08111f;
+  --card:#101b2d;
+  --card2:#0d1728;
+  --text:#f4f7ff;
   --muted:#91a0b8;
-  --line:#263248;
-  --shadow:0 12px 35px rgba(0,0,0,.25);
+  --line:#243148;
+  --shadow:0 15px 40px rgba(0,0,0,.28);
 }
 
 body{
@@ -44,31 +49,156 @@ body{
   transition:.25s;
 }
 
-button,input{
+button,
+input{
   font:inherit;
 }
 
 button{
-  cursor:pointer;
   border:0;
+  cursor:pointer;
 }
+
+.hidden{
+  display:none!important;
+}
+
+/* =====================================================
+   LOGIN
+===================================================== */
+
+.auth-screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at 20% 20%,rgba(36,107,254,.15),transparent 30%),
+    radial-gradient(circle at 80% 80%,rgba(92,145,255,.12),transparent 30%),
+    var(--bg);
+}
+
+.auth-box{
+  width:min(430px,100%);
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:25px;
+  padding:30px;
+  box-shadow:0 25px 70px rgba(23,48,88,.12);
+}
+
+.auth-logo{
+  text-align:center;
+  margin-bottom:25px;
+}
+
+.auth-logo-icon{
+  width:62px;
+  height:62px;
+  margin:auto;
+  border-radius:19px;
+  background:linear-gradient(135deg,var(--primary),#78a5ff);
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:27px;
+  font-weight:900;
+  box-shadow:0 12px 25px rgba(36,107,254,.25);
+}
+
+.auth-logo h1{
+  margin-top:12px;
+  font-size:25px;
+}
+
+.auth-logo p{
+  margin-top:4px;
+  color:var(--muted);
+  font-size:12px;
+}
+
+.auth-tabs{
+  display:flex;
+  background:var(--bg);
+  padding:4px;
+  border-radius:12px;
+  margin-bottom:20px;
+}
+
+.auth-tabs button{
+  flex:1;
+  padding:10px;
+  border-radius:9px;
+  background:transparent;
+  color:var(--muted);
+  font-weight:750;
+}
+
+.auth-tabs button.active{
+  background:var(--card);
+  color:var(--primary);
+  box-shadow:0 3px 10px rgba(0,0,0,.05);
+}
+
+.auth-field{
+  margin-bottom:14px;
+}
+
+.auth-field label{
+  display:block;
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:6px;
+}
+
+.auth-field input{
+  width:100%;
+  padding:13px;
+  border:1px solid var(--line);
+  background:var(--bg);
+  color:var(--text);
+  border-radius:12px;
+  outline:none;
+}
+
+.auth-submit{
+  width:100%;
+  padding:13px;
+  border-radius:12px;
+  background:var(--primary);
+  color:white;
+  font-weight:800;
+  margin-top:5px;
+}
+
+.demo-login{
+  text-align:center;
+  margin-top:15px;
+  font-size:10px;
+  color:var(--muted);
+  line-height:1.6;
+}
+
+/* =====================================================
+   APP
+===================================================== */
 
 .app{
-  display:flex;
   min-height:100vh;
+  display:flex;
 }
 
-/* SIDEBAR */
 .sidebar{
-  width:245px;
-  background:var(--card);
-  border-right:1px solid var(--line);
-  padding:25px 16px;
   position:fixed;
   left:0;
   top:0;
   bottom:0;
-  z-index:20;
+  width:245px;
+  padding:24px 15px;
+  background:var(--card);
+  border-right:1px solid var(--line);
+  z-index:30;
 }
 
 .logo{
@@ -82,55 +212,47 @@ button{
   width:42px;
   height:42px;
   border-radius:13px;
-  background:linear-gradient(135deg,var(--primary),#6c9cff);
+  background:linear-gradient(135deg,var(--primary),#6f9eff);
   color:white;
   display:grid;
   place-items:center;
   font-weight:900;
-  font-size:19px;
-  box-shadow:0 8px 20px rgba(36,107,254,.25);
 }
 
 .logo h2{
-  font-size:20px;
-  letter-spacing:-.5px;
+  font-size:19px;
 }
 
 .logo small{
   display:block;
   color:var(--muted);
-  font-size:9px;
+  font-size:8px;
+  letter-spacing:1px;
   margin-top:2px;
-  letter-spacing:1.2px;
 }
 
 .nav{
   display:grid;
-  gap:7px;
+  gap:6px;
 }
 
 .nav button{
-  width:100%;
-  text-align:left;
-  padding:13px 14px;
-  border-radius:12px;
-  background:transparent;
-  color:var(--muted);
   display:flex;
   align-items:center;
   gap:12px;
-  font-weight:650;
-  transition:.2s;
+  width:100%;
+  padding:13px;
+  border-radius:12px;
+  background:transparent;
+  color:var(--muted);
+  text-align:left;
+  font-weight:700;
 }
 
-.nav button:hover{
-  background:rgba(36,107,254,.08);
-  color:var(--primary);
-}
-
+.nav button:hover,
 .nav button.active{
-  background:rgba(36,107,254,.11);
   color:var(--primary);
+  background:rgba(36,107,254,.09);
 }
 
 .nav-icon{
@@ -139,20 +261,37 @@ button{
   font-size:17px;
 }
 
-.demo-note{
+.sidebar-bottom{
   position:absolute;
   bottom:20px;
-  left:16px;
-  right:16px;
-  padding:14px;
+  left:15px;
+  right:15px;
+}
+
+.mode-card{
+  padding:13px;
   border-radius:14px;
-  background:rgba(36,107,254,.08);
-  font-size:11px;
+  background:rgba(36,107,254,.07);
+  font-size:10px;
   color:var(--muted);
   line-height:1.5;
 }
 
-/* MAIN */
+.logout{
+  margin-top:8px;
+  width:100%;
+  padding:11px;
+  border-radius:11px;
+  background:var(--bg);
+  color:var(--red);
+  font-size:11px;
+  font-weight:750;
+}
+
+/* =====================================================
+   MAIN
+===================================================== */
+
 .main{
   margin-left:245px;
   width:calc(100% - 245px);
@@ -161,26 +300,26 @@ button{
 
 .topbar{
   display:flex;
-  align-items:center;
   justify-content:space-between;
-  margin-bottom:24px;
+  align-items:center;
+  margin-bottom:23px;
 }
 
-.greeting h1{
+.page-title h1{
   font-size:27px;
   letter-spacing:-.8px;
 }
 
-.greeting p{
-  color:var(--muted);
+.page-title p{
   margin-top:4px;
-  font-size:13px;
+  color:var(--muted);
+  font-size:12px;
 }
 
 .top-actions{
   display:flex;
   align-items:center;
-  gap:10px;
+  gap:9px;
 }
 
 .icon-btn{
@@ -190,21 +329,23 @@ button{
   background:var(--card);
   color:var(--text);
   border:1px solid var(--line);
-  box-shadow:var(--shadow);
 }
 
 .avatar{
   width:42px;
   height:42px;
   border-radius:50%;
-  background:linear-gradient(135deg,#246bfe,#7ba6ff);
-  color:#fff;
   display:grid;
   place-items:center;
-  font-weight:800;
+  background:linear-gradient(135deg,var(--primary),#7aa4ff);
+  color:white;
+  font-weight:850;
 }
 
-/* DASHBOARD */
+/* =====================================================
+   PAGES
+===================================================== */
+
 .page{
   display:none;
 }
@@ -213,72 +354,109 @@ button{
   display:block;
 }
 
-.hero{
-  background:linear-gradient(135deg,#246bfe,#4e8cff);
-  color:#fff;
-  border-radius:22px;
-  padding:27px;
+/* =====================================================
+   DASHBOARD
+===================================================== */
+
+.balance-card{
   position:relative;
   overflow:hidden;
-  box-shadow:0 15px 35px rgba(36,107,254,.2);
+  padding:27px;
+  border-radius:23px;
+  color:white;
+  background:linear-gradient(135deg,#246bfe,#5a91ff);
+  box-shadow:0 17px 38px rgba(36,107,254,.2);
 }
 
-.hero:after{
+.balance-card:after{
   content:"";
   position:absolute;
-  width:260px;
-  height:260px;
+  width:300px;
+  height:300px;
+  border:50px solid rgba(255,255,255,.07);
   border-radius:50%;
-  border:45px solid rgba(255,255,255,.07);
-  right:-75px;
-  top:-100px;
+  right:-100px;
+  top:-130px;
 }
 
-.hero-label{
-  font-size:12px;
-  opacity:.82;
+.balance-label{
+  font-size:11px;
+  opacity:.8;
 }
 
-.hero-balance{
-  font-size:34px;
-  font-weight:850;
-  margin:7px 0 5px;
+.balance{
+  font-size:35px;
+  font-weight:900;
   letter-spacing:-1px;
+  margin:6px 0;
 }
 
-.hero-sub{
-  font-size:12px;
-  opacity:.82;
+.balance-sub{
+  font-size:11px;
+  opacity:.8;
 }
 
-.hero-actions{
+.balance-actions{
   display:flex;
-  gap:9px;
-  margin-top:20px;
+  gap:8px;
+  margin-top:19px;
 }
 
-.hero-actions button{
-  padding:10px 15px;
+.balance-actions button{
+  padding:10px 14px;
   border-radius:10px;
-  background:#fff;
-  color:#246bfe;
-  font-weight:750;
+  background:white;
+  color:var(--primary);
+  font-weight:800;
 }
 
-.hero-actions button.secondary{
-  background:rgba(255,255,255,.14);
-  color:#fff;
+.balance-actions button.secondary{
+  background:rgba(255,255,255,.15);
+  color:white;
   border:1px solid rgba(255,255,255,.25);
 }
 
 .stats{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:16px;
-  margin-top:18px;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-top:17px;
 }
 
-.stat-card,
+.stat{
+  padding:17px;
+  border-radius:17px;
+  background:var(--card);
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+
+.stat-label{
+  color:var(--muted);
+  font-size:11px;
+}
+
+.stat-value{
+  margin-top:7px;
+  font-size:19px;
+  font-weight:850;
+}
+
+.green{
+  color:var(--green)!important;
+}
+
+.red{
+  color:var(--red)!important;
+}
+
+.content-grid{
+  display:grid;
+  grid-template-columns:1.45fr 1fr;
+  gap:17px;
+  margin-top:17px;
+}
+
 .card{
   background:var(--card);
   border:1px solid var(--line);
@@ -286,68 +464,42 @@ button{
   box-shadow:var(--shadow);
 }
 
-.stat-card{
-  padding:19px;
-}
-
-.stat-title{
-  color:var(--muted);
-  font-size:12px;
-}
-
-.stat-value{
-  font-size:20px;
-  font-weight:800;
-  margin-top:8px;
-}
-
-.green{
-  color:var(--green);
-}
-
-.red{
-  color:var(--red);
-}
-
-.content-grid{
-  display:grid;
-  grid-template-columns:1.4fr 1fr;
-  gap:18px;
-  margin-top:18px;
-}
-
 .card-head{
+  padding:18px 18px 10px;
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:19px 19px 10px;
 }
 
 .card-head h3{
-  font-size:16px;
+  font-size:15px;
 }
 
 .card-head span{
   color:var(--primary);
-  font-size:12px;
+  font-size:11px;
+  font-weight:750;
   cursor:pointer;
-  font-weight:700;
 }
 
 .chart-wrap{
-  padding:8px 18px 20px;
+  height:270px;
+  padding:5px 18px 18px;
 }
 
 canvas{
   width:100%;
-  height:240px;
+  height:100%;
 }
 
-/* MARKET */
-.market-tools{
+/* =====================================================
+   MARKET
+===================================================== */
+
+.market-toolbar{
   display:flex;
   gap:10px;
-  margin-bottom:17px;
+  margin-bottom:15px;
 }
 
 .search{
@@ -355,68 +507,67 @@ canvas{
   position:relative;
 }
 
-.search input{
-  width:100%;
-  padding:13px 15px 13px 42px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:var(--card);
-  color:var(--text);
-  outline:none;
-}
-
 .search span{
   position:absolute;
-  left:15px;
-  top:12px;
+  left:14px;
+  top:11px;
+  color:var(--muted);
+}
+
+.search input{
+  width:100%;
+  padding:12px 14px 12px 39px;
+  border:1px solid var(--line);
+  background:var(--card);
+  color:var(--text);
+  border-radius:12px;
+  outline:none;
 }
 
 .market-list{
   display:grid;
-  gap:10px;
+  gap:9px;
 }
 
 .asset{
+  padding:15px;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:15px;
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:16px;
-  border:1px solid var(--line);
-  background:var(--card);
-  border-radius:15px;
-  transition:.2s;
-}
-
-.asset:hover{
-  transform:translateY(-1px);
-  box-shadow:var(--shadow);
+  gap:10px;
 }
 
 .asset-left{
   display:flex;
   align-items:center;
-  gap:12px;
+  gap:11px;
+  flex:1;
 }
 
 .coin{
   width:42px;
   height:42px;
-  border-radius:13px;
-  display:grid;
-  place-items:center;
-  font-weight:900;
+  border-radius:12px;
   background:rgba(36,107,254,.1);
   color:var(--primary);
+  display:grid;
+  place-items:center;
+  font-size:10px;
+  font-weight:900;
 }
 
 .asset-name{
+  font-size:13px;
   font-weight:750;
 }
 
 .asset-code{
-  color:var(--muted);
-  font-size:11px;
   margin-top:3px;
+  color:var(--muted);
+  font-size:10px;
 }
 
 .asset-price{
@@ -424,54 +575,63 @@ canvas{
 }
 
 .price{
-  font-weight:750;
+  font-size:13px;
+  font-weight:800;
 }
 
 .change{
-  font-size:11px;
-  margin-top:4px;
+  margin-top:3px;
+  font-size:10px;
 }
 
 .asset-actions{
   display:flex;
-  gap:6px;
-  margin-left:14px;
+  gap:5px;
 }
 
 .buy,
 .sell{
-  padding:8px 12px;
-  border-radius:9px;
-  font-size:11px;
-  font-weight:800;
+  padding:8px 11px;
+  border-radius:8px;
+  font-size:10px;
+  font-weight:850;
 }
 
 .buy{
-  background:rgba(16,168,107,.1);
+  background:rgba(11,166,111,.1);
   color:var(--green);
 }
 
 .sell{
-  background:rgba(233,79,100,.1);
+  background:rgba(231,79,103,.1);
   color:var(--red);
 }
 
-/* PORTFOLIO */
-.portfolio-grid{
+/* =====================================================
+   PORTFOLIO
+===================================================== */
+
+.port-grid{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:16px;
+  grid-template-columns:1.3fr 1fr;
+  gap:17px;
 }
 
 .port-card{
   padding:18px;
 }
 
+.port-total{
+  font-size:27px;
+  font-weight:900;
+  margin:7px 0 3px;
+}
+
 .holding{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  padding:14px 0;
+  padding:13px 0;
   border-bottom:1px solid var(--line);
 }
 
@@ -488,43 +648,49 @@ canvas{
 .holding-icon{
   width:38px;
   height:38px;
-  border-radius:11px;
-  background:rgba(36,107,254,.1);
+  border-radius:10px;
+  background:rgba(36,107,254,.09);
   color:var(--primary);
   display:grid;
   place-items:center;
-  font-size:12px;
-  font-weight:900;
+  font-size:10px;
+  font-weight:850;
 }
 
 .holding-name{
-  font-weight:700;
-  font-size:13px;
+  font-size:12px;
+  font-weight:750;
 }
 
 .holding-qty{
   color:var(--muted);
-  font-size:10px;
+  font-size:9px;
   margin-top:3px;
+}
+
+.holding-right{
+  text-align:right;
 }
 
 .holding-value{
-  text-align:right;
-  font-weight:750;
-  font-size:13px;
+  font-size:12px;
+  font-weight:800;
 }
 
 .holding-profit{
-  font-size:10px;
+  font-size:9px;
   margin-top:3px;
 }
 
-/* TRANSACTIONS */
+/* =====================================================
+   TRANSACTIONS
+===================================================== */
+
 .transaction{
   display:flex;
   align-items:center;
   justify-content:space-between;
-  padding:14px 0;
+  padding:13px 0;
   border-bottom:1px solid var(--line);
 }
 
@@ -534,8 +700,8 @@ canvas{
 
 .tx-left{
   display:flex;
-  gap:11px;
   align-items:center;
+  gap:10px;
 }
 
 .tx-icon{
@@ -544,46 +710,114 @@ canvas{
   border-radius:10px;
   display:grid;
   place-items:center;
-  font-size:12px;
-  font-weight:800;
+  font-size:11px;
+  font-weight:900;
 }
 
 .tx-buy{
-  background:rgba(16,168,107,.1);
+  background:rgba(11,166,111,.1);
   color:var(--green);
 }
 
 .tx-sell{
-  background:rgba(233,79,100,.1);
+  background:rgba(231,79,103,.1);
   color:var(--red);
 }
 
 .tx-name{
-  font-weight:700;
-  font-size:13px;
+  font-size:12px;
+  font-weight:750;
 }
 
 .tx-date{
-  font-size:10px;
   color:var(--muted);
+  font-size:9px;
   margin-top:3px;
 }
 
 .tx-value{
+  font-size:12px;
+  font-weight:800;
+}
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile-card{
+  max-width:700px;
+  padding:22px;
+}
+
+.profile-header{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  padding-bottom:20px;
+  border-bottom:1px solid var(--line);
+}
+
+.profile-avatar{
+  width:70px;
+  height:70px;
+  border-radius:20px;
+  background:linear-gradient(135deg,var(--primary),#7aa4ff);
+  display:grid;
+  place-items:center;
+  color:white;
+  font-size:25px;
+  font-weight:900;
+}
+
+.profile-name{
+  font-size:19px;
+  font-weight:850;
+}
+
+.profile-email{
+  color:var(--muted);
+  font-size:11px;
+  margin-top:4px;
+}
+
+.profile-row{
+  padding:15px 0;
+  border-bottom:1px solid var(--line);
+}
+
+.profile-row label{
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-bottom:5px;
+}
+
+.profile-row strong{
   font-size:13px;
+}
+
+.danger{
+  margin-top:18px;
+  padding:12px 15px;
+  border-radius:10px;
+  background:rgba(231,79,103,.1);
+  color:var(--red);
   font-weight:750;
 }
 
-/* MODAL */
+/* =====================================================
+   MODAL
+===================================================== */
+
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.48);
+  background:rgba(0,0,0,.5);
   display:none;
   align-items:center;
   justify-content:center;
-  z-index:100;
   padding:18px;
+  z-index:100;
 }
 
 .modal.show{
@@ -594,21 +828,21 @@ canvas{
   width:min(430px,100%);
   background:var(--card);
   border-radius:20px;
-  padding:23px;
-  box-shadow:0 25px 70px rgba(0,0,0,.25);
+  padding:22px;
+  box-shadow:0 30px 80px rgba(0,0,0,.3);
 }
 
 .modal-top{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:20px;
+  margin-bottom:18px;
 }
 
 .close{
   width:34px;
   height:34px;
-  border-radius:10px;
+  border-radius:9px;
   background:var(--bg);
   color:var(--text);
 }
@@ -616,113 +850,119 @@ canvas{
 .order-asset{
   display:flex;
   align-items:center;
-  gap:12px;
-  margin-bottom:18px;
-}
-
-.order-info strong{
-  display:block;
-}
-
-.order-info small{
-  color:var(--muted);
-}
-
-.order-type{
-  display:flex;
-  gap:7px;
+  gap:11px;
   margin-bottom:15px;
 }
 
-.order-type button{
-  flex:1;
-  padding:10px;
-  border-radius:10px;
-  background:var(--bg);
-  color:var(--muted);
-  font-weight:750;
+.order-asset strong{
+  display:block;
+  font-size:13px;
 }
 
-.order-type button.active.buy-type{
-  background:rgba(16,168,107,.12);
+.order-asset small{
+  color:var(--muted);
+  font-size:10px;
+}
+
+.order-tabs{
+  display:flex;
+  gap:6px;
+  margin-bottom:13px;
+}
+
+.order-tabs button{
+  flex:1;
+  padding:10px;
+  border-radius:9px;
+  background:var(--bg);
+  color:var(--muted);
+  font-weight:800;
+  font-size:11px;
+}
+
+.order-tabs button.active-buy{
+  background:rgba(11,166,111,.11);
   color:var(--green);
 }
 
-.order-type button.active.sell-type{
-  background:rgba(233,79,100,.12);
+.order-tabs button.active-sell{
+  background:rgba(231,79,103,.11);
   color:var(--red);
 }
 
 .field{
-  margin-bottom:14px;
+  margin-bottom:12px;
 }
 
 .field label{
   display:block;
-  font-size:11px;
   color:var(--muted);
-  margin-bottom:6px;
+  font-size:10px;
+  margin-bottom:5px;
 }
 
 .field input{
   width:100%;
   padding:12px;
-  border-radius:11px;
   border:1px solid var(--line);
   background:var(--bg);
   color:var(--text);
+  border-radius:10px;
   outline:none;
 }
 
-.order-summary{
+.summary{
+  padding:12px;
+  border-radius:11px;
   background:var(--bg);
-  border-radius:12px;
-  padding:13px;
-  margin:15px 0;
-  font-size:12px;
+  margin:13px 0;
+  font-size:11px;
 }
 
 .summary-row{
   display:flex;
   justify-content:space-between;
-  margin:6px 0;
+  margin:5px 0;
 }
 
-.order-submit{
+.submit-order{
   width:100%;
   padding:13px;
-  border-radius:11px;
+  border-radius:10px;
   color:white;
   background:var(--primary);
-  font-weight:800;
+  font-weight:850;
 }
 
-/* MOBILE */
+/* =====================================================
+   MOBILE
+===================================================== */
+
 .mobile-nav{
   display:none;
 }
 
-@media(max-width:900px){
+@media(max-width:950px){
+
   .sidebar{
     width:75px;
-    padding:18px 9px;
   }
 
   .logo{
     justify-content:center;
-    padding:0 0 25px;
+    padding-left:0;
+    padding-right:0;
   }
 
   .logo h2,
   .logo small,
   .nav button span:not(.nav-icon),
-  .demo-note{
+  .sidebar-bottom{
     display:none;
   }
 
   .nav button{
     justify-content:center;
-    padding:13px 5px;
   }
 
   .main{
@@ -730,12 +970,18 @@ canvas{
     width:calc(100% - 75px);
   }
 
-  .content-grid{
+  .stats{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .content-grid,
+  .port-grid{
     grid-template-columns:1fr;
   }
 }
 
 @media(max-width:650px){
+
   .sidebar{
     display:none;
   }
@@ -744,51 +990,58 @@ canvas{
     margin-left:0;
     width:100%;
     padding:15px;
-    padding-bottom:85px;
+    padding-bottom:82px;
   }
 
-  .topbar{
-    margin-bottom:17px;
-  }
-
-  .greeting h1{
+  .page-title h1{
     font-size:22px;
   }
 
-  .hero{
-    border-radius:18px;
+  .balance-card{
     padding:21px;
   }
 
-  .hero-balance{
+  .balance{
     font-size:29px;
   }
 
   .stats{
-    grid-template-columns:1fr;
-    gap:10px;
+    grid-template-columns:1fr 1fr;
+    gap:9px;
   }
 
-  .content-grid,
-  .portfolio-grid{
-    grid-template-columns:1fr;
+  .stat{
+    padding:14px;
+  }
+
+  .stat-value{
+    font-size:16px;
   }
 
   .asset{
     align-items:flex-start;
-    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .asset-price{
+    margin-left:auto;
   }
 
   .asset-actions{
-    margin-left:0;
+    width:100%;
+    padding-left:53px;
+  }
+
+  .asset-actions button{
+    flex:1;
   }
 
   .mobile-nav{
-    display:flex;
     position:fixed;
-    bottom:0;
+    display:flex;
     left:0;
     right:0;
+    bottom:0;
     height:67px;
     background:var(--card);
     border-top:1px solid var(--line);
@@ -797,15 +1050,16 @@ canvas{
   }
 
   .mobile-nav button{
-    background:none;
+    min-width:65px;
+    background:transparent;
     color:var(--muted);
-    font-size:10px;
-    font-weight:700;
     display:flex;
     flex-direction:column;
-    gap:3px;
     align-items:center;
     justify-content:center;
+    gap:3px;
+    font-size:9px;
+    font-weight:750;
   }
 
   .mobile-nav button.active{
@@ -813,7 +1067,11 @@ canvas{
   }
 
   .mobile-nav b{
-    font-size:18px;
+    font-size:17px;
+  }
+
+  .auth-box{
+    padding:23px;
   }
 }
 </style>
@@ -821,244 +1079,719 @@ canvas{
 
 <body>
 
-<div class="app">
+<!-- =====================================================
+     AUTH SCREEN
+===================================================== -->
 
-<!-- SIDEBAR -->
-<aside class="sidebar">
+<section id="authScreen" class="auth-screen">
 
-  <div class="logo">
-    <div class="logo-icon">A</div>
-    <div>
-      <h2>ALFA INVEST</h2>
-      <small>INVESTMENT SIMULATOR</small>
-    </div>
-  </div>
+  <div class="auth-box">
 
-  <nav class="nav">
-    <button class="active" onclick="showPage('dashboard',this)">
-      <span class="nav-icon">⌂</span><span>Dashboard</span>
-    </button>
+    <div class="auth-logo">
 
-    <button onclick="showPage('market',this)">
-      <span class="nav-icon">◈</span><span>Market</span>
-    </button>
+      <div class="auth-logo-icon">A</div>
 
-    <button onclick="showPage('portfolio',this)">
-      <span class="nav-icon">▥</span><span>Portfolio</span>
-    </button>
+      <h1>ALFA INVEST</h1>
 
-    <button onclick="showPage('history',this)">
-      <span class="nav-icon">↕</span><span>Riwayat</span>
-    </button>
-  </nav>
+      <p>Smart Investment Simulator</p>
 
-  <div class="demo-note">
-    <strong>MODE SIMULASI</strong><br>
-    Seluruh saldo dan transaksi di aplikasi ini menggunakan uang virtual.
-  </div>
-
-</aside>
-
-<!-- MAIN -->
-<main class="main">
-
-<header class="topbar">
-  <div class="greeting">
-    <h1 id="pageTitle">Dashboard</h1>
-    <p>Kelola portfolio investasi virtual Anda.</p>
-  </div>
-
-  <div class="top-actions">
-    <button class="icon-btn" onclick="toggleDark()" title="Dark Mode">◐</button>
-    <div class="avatar">A</div>
-  </div>
-</header>
-
-<!-- DASHBOARD -->
-<section id="dashboard" class="page active">
-
-  <div class="hero">
-    <div class="hero-label">TOTAL PORTFOLIO</div>
-    <div class="hero-balance" id="heroBalance">Rp10.000.000</div>
-    <div class="hero-sub">
-      Saldo tersedia <strong id="heroCash">Rp10.000.000</strong>
     </div>
 
-    <div class="hero-actions">
-      <button onclick="showPage('market')">Mulai Investasi</button>
-      <button class="secondary" onclick="showPage('portfolio')">Lihat Portfolio</button>
-    </div>
-  </div>
+    <div class="auth-tabs">
 
-  <div class="stats">
+      <button id="loginTab"
+        class="active"
+        onclick="switchAuth('login')">
+        Masuk
+      </button>
 
-    <div class="stat-card">
-      <div class="stat-title">Total Profit</div>
-      <div class="stat-value green" id="totalProfit">Rp0</div>
-    </div>
+      <button id="registerTab"
+        onclick="switchAuth('register')">
+        Daftar
+      </button>
 
-    <div class="stat-card">
-      <div class="stat-title">Return</div>
-      <div class="stat-value green" id="totalReturn">0,00%</div>
     </div>
 
-    <div class="stat-card">
-      <div class="stat-title">Aset Dimiliki</div>
-      <div class="stat-value" id="assetCount">0</div>
-    </div>
+    <form id="authForm" onsubmit="handleAuth(event)">
 
-  </div>
+      <div class="auth-field">
 
-  <div class="content-grid">
+        <label>Nama / Username</label>
 
-    <div class="card">
-      <div class="card-head">
-        <h3>Performa Portfolio</h3>
-        <span>1 Tahun</span>
+        <input
+          id="authName"
+          type="text"
+          placeholder="Masukkan username"
+          required>
+
       </div>
 
-      <div class="chart-wrap">
-        <canvas id="chart"></canvas>
-      </div>
-    </div>
+      <div class="auth-field">
 
-    <div class="card">
-      <div class="card-head">
-        <h3>Aktivitas Terbaru</h3>
-        <span onclick="showPage('history')">Lihat Semua</span>
+        <label>Email</label>
+
+        <input
+          id="authEmail"
+          type="email"
+          placeholder="nama@email.com"
+          required>
+
       </div>
 
-      <div id="recentTransactions" style="padding:0 19px 15px"></div>
+      <div class="auth-field">
+
+        <label>Password</label>
+
+        <input
+          id="authPassword"
+          type="password"
+          placeholder="Minimal 6 karakter"
+          minlength="6"
+          required>
+
+      </div>
+
+      <button class="auth-submit">
+        <span id="authButtonText">Masuk ke ALFA INVEST</span>
+      </button>
+
+    </form>
+
+    <div class="demo-login">
+      MODE SIMULASI<br>
+      Akun dan saldo hanya tersimpan pada browser ini.
     </div>
 
   </div>
 
 </section>
 
-<!-- MARKET -->
-<section id="market" class="page">
 
-  <div class="market-tools">
-    <div class="search">
-      <span>⌕</span>
-      <input id="searchInput" oninput="renderMarket()" placeholder="Cari aset...">
-    </div>
-  </div>
+<!-- =====================================================
+     APP
+===================================================== -->
 
-  <div class="market-list" id="marketList"></div>
+<div id="app" class="app hidden">
 
-</section>
+  <aside class="sidebar">
 
-<!-- PORTFOLIO -->
-<section id="portfolio" class="page">
+    <div class="logo">
 
-  <div class="portfolio-grid">
+      <div class="logo-icon">A</div>
 
-    <div class="card port-card">
-      <div class="card-head" style="padding:0 0 10px">
-        <h3>Aset Saya</h3>
-        <span id="portfolioTotal">Rp0</span>
+      <div>
+        <h2>ALFA INVEST</h2>
+        <small>INVESTMENT PLATFORM</small>
       </div>
 
-      <div id="holdings"></div>
     </div>
 
-    <div class="card port-card">
-      <div class="card-head" style="padding:0 0 10px">
-        <h3>Saldo Tersedia</h3>
+    <nav class="nav">
+
+      <button
+        class="active"
+        onclick="showPage('dashboard',this)">
+        <span class="nav-icon">⌂</span>
+        <span>Dashboard</span>
+      </button>
+
+      <button onclick="showPage('market',this)">
+        <span class="nav-icon">◈</span>
+        <span>Market</span>
+      </button>
+
+      <button onclick="showPage('portfolio',this)">
+        <span class="nav-icon">▥</span>
+        <span>Portfolio</span>
+      </button>
+
+      <button onclick="showPage('history',this)">
+        <span class="nav-icon">↕</span>
+        <span>Riwayat</span>
+      </button>
+
+      <button onclick="showPage('profile',this)">
+        <span class="nav-icon">●</span>
+        <span>Profil</span>
+      </button>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="mode-card">
+        <strong>SIMULATION MODE</strong><br>
+        Semua saldo menggunakan uang virtual.
       </div>
 
-      <div style="font-size:28px;font-weight:850;margin:8px 0 20px" id="portfolioCash">
-        Rp10.000.000
-      </div>
+      <button class="logout" onclick="logout()">
+        Keluar Akun
+      </button>
 
-      <div style="font-size:12px;color:var(--muted);line-height:1.7">
-        Saldo virtual dapat digunakan untuk membeli aset simulasi.
-        Tidak ada uang nyata yang diproses.
-      </div>
     </div>
 
-  </div>
+  </aside>
 
-</section>
 
-<!-- HISTORY -->
-<section id="history" class="page">
+  <main class="main">
 
-  <div class="card" style="padding:0 19px">
-    <div class="card-head" style="padding-left:0;padding-right:0">
-      <h3>Riwayat Transaksi</h3>
-      <span onclick="resetSimulation()">Reset Simulasi</span>
-    </div>
+    <header class="topbar">
 
-    <div id="transactions"></div>
-  </div>
+      <div class="page-title">
 
-</section>
+        <h1 id="pageTitle">Dashboard</h1>
 
-</main>
+        <p>
+          Selamat datang,
+          <strong id="welcomeName">Investor</strong>
+        </p>
+
+      </div>
+
+      <div class="top-actions">
+
+        <button
+          class="icon-btn"
+          onclick="toggleDark()">
+          ◐
+        </button>
+
+        <div
+          class="avatar"
+          id="topAvatar">
+          A
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <!-- DASHBOARD -->
+
+    <section
+      id="dashboard"
+      class="page active">
+
+      <div class="balance-card">
+
+        <div class="balance-label">
+          TOTAL PORTFOLIO
+        </div>
+
+        <div
+          class="balance"
+          id="totalBalance">
+          Rp10.000.000
+        </div>
+
+        <div class="balance-sub">
+          Saldo tersedia:
+          <strong id="cashBalance">
+            Rp10.000.000
+          </strong>
+        </div>
+
+        <div class="balance-actions">
+
+          <button onclick="showPage('market')">
+            Mulai Investasi
+          </button>
+
+          <button
+            class="secondary"
+            onclick="showPage('portfolio')">
+            Portfolio
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <div class="stats">
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Total Profit
+          </div>
+
+          <div
+            class="stat-value green"
+            id="totalProfit">
+            Rp0
+          </div>
+
+        </div>
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Return
+          </div>
+
+          <div
+            class="stat-value green"
+            id="totalReturn">
+            0,00%
+          </div>
+
+        </div>
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Aset
+          </div>
+
+          <div
+            class="stat-value"
+            id="assetCount">
+            0
+          </div>
+
+        </div>
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Transaksi
+          </div>
+
+          <div
+            class="stat-value"
+            id="transactionCount">
+            0
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="content-grid">
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <h3>
+              Performa Portfolio
+            </h3>
+
+            <span>
+              1 Tahun
+            </span>
+
+          </div>
+
+          <div class="chart-wrap">
+            <canvas id="chart"></canvas>
+          </div>
+
+        </div>
+
+
+        <div class="card">
+
+          <div class="card-head">
+
+            <h3>
+              Aktivitas Terbaru
+            </h3>
+
+            <span onclick="showPage('history')">
+              Semua
+            </span>
+
+          </div>
+
+          <div
+            id="recentTransactions"
+            style="padding:0 18px 15px">
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- MARKET -->
+
+    <section
+      id="market"
+      class="page">
+
+      <div class="market-toolbar">
+
+        <div class="search">
+
+          <span>⌕</span>
+
+          <input
+            id="searchInput"
+            oninput="renderMarket()"
+            placeholder="Cari aset...">
+
+        </div>
+
+      </div>
+
+      <div
+        id="marketList"
+        class="market-list">
+      </div>
+
+    </section>
+
+
+    <!-- PORTFOLIO -->
+
+    <section
+      id="portfolio"
+      class="page">
+
+      <div class="port-grid">
+
+        <div class="card port-card">
+
+          <div class="card-head"
+            style="padding:0">
+
+            <h3>
+              Portfolio Saya
+            </h3>
+
+          </div>
+
+          <div
+            class="port-total"
+            id="portfolioTotal">
+            Rp0
+          </div>
+
+          <div
+            style="font-size:10px;color:var(--muted);margin-bottom:15px">
+            Nilai aset saat ini
+          </div>
+
+          <div id="holdings"></div>
+
+        </div>
+
+
+        <div class="card port-card">
+
+          <div class="card-head"
+            style="padding:0">
+
+            <h3>
+              Saldo Tersedia
+            </h3>
+
+          </div>
+
+          <div
+            class="port-total"
+            id="portfolioCash">
+            Rp10.000.000
+          </div>
+
+          <div
+            style="
+            color:var(--muted);
+            font-size:11px;
+            line-height:1.7;
+            margin-top:10px;">
+            Saldo ini merupakan saldo
+            virtual yang digunakan untuk
+            simulasi investasi.
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <!-- HISTORY -->
+
+    <section
+      id="history"
+      class="page">
+
+      <div
+        class="card"
+        style="padding:0 18px">
+
+        <div class="card-head"
+          style="padding-left:0;padding-right:0">
+
+          <h3>
+            Riwayat Transaksi
+          </h3>
+
+          <span onclick="resetSimulation()">
+            Reset
+          </span>
+
+        </div>
+
+        <div id="transactions"></div>
+
+      </div>
+
+    </section>
+
+
+    <!-- PROFILE -->
+
+    <section
+      id="profile"
+      class="page">
+
+      <div class="profile-card card">
+
+        <div class="profile-header">
+
+          <div
+            class="profile-avatar"
+            id="profileAvatar">
+            A
+          </div>
+
+          <div>
+
+            <div
+              class="profile-name"
+              id="profileName">
+              Investor
+            </div>
+
+            <div
+              class="profile-email"
+              id="profileEmail">
+              -
+            </div>
+
+          </div>
+
+        </div>
+
+
+        <div class="profile-row">
+
+          <label>
+            STATUS AKUN
+          </label>
+
+          <strong class="green">
+            SIMULATION ACCOUNT
+          </strong>
+
+        </div>
+
+
+        <div class="profile-row">
+
+          <label>
+            SALDO VIRTUAL
+          </label>
+
+          <strong id="profileBalance">
+            Rp10.000.000
+          </strong>
+
+        </div>
+
+
+        <div class="profile-row">
+
+          <label>
+            TOTAL TRANSAKSI
+          </label>
+
+          <strong id="profileTransactions">
+            0
+          </strong>
+
+        </div>
+
+
+        <button
+          class="danger"
+          onclick="resetAccount()">
+          Reset Akun & Semua Data
+        </button>
+
+      </div>
+
+    </section>
+
+  </main>
+
 </div>
 
+
 <!-- MOBILE NAV -->
-<nav class="mobile-nav">
-  <button class="active" onclick="mobilePage('dashboard',this)">
-    <b>⌂</b>Home
+
+<nav
+  id="mobileNav"
+  class="mobile-nav hidden">
+
+  <button
+    class="active"
+    onclick="mobilePage('dashboard',this)">
+    <b>⌂</b>
+    Home
   </button>
+
   <button onclick="mobilePage('market',this)">
-    <b>◈</b>Market
+    <b>◈</b>
+    Market
   </button>
+
   <button onclick="mobilePage('portfolio',this)">
-    <b>▥</b>Portfolio
+    <b>▥</b>
+    Portfolio
   </button>
+
   <button onclick="mobilePage('history',this)">
-    <b>↕</b>Riwayat
+    <b>↕</b>
+    Riwayat
   </button>
+
+  <button onclick="mobilePage('profile',this)">
+    <b>●</b>
+    Profil
+  </button>
+
 </nav>
 
+
 <!-- ORDER MODAL -->
-<div class="modal" id="orderModal">
+
+<div
+  class="modal"
+  id="orderModal">
 
   <div class="modal-box">
 
     <div class="modal-top">
-      <h3 id="modalTitle">Beli Aset</h3>
-      <button class="close" onclick="closeModal()">×</button>
+
+      <h3 id="modalTitle">
+        Beli Aset
+      </h3>
+
+      <button
+        class="close"
+        onclick="closeModal()">
+        ×
+      </button>
+
     </div>
+
 
     <div class="order-asset">
-      <div class="coin" id="modalIcon">BBCA</div>
-      <div class="order-info">
-        <strong id="modalAssetName">Bank Central Asia</strong>
-        <small id="modalPrice">Rp8.750</small>
+
+      <div
+        class="coin"
+        id="modalIcon">
+        BBCA
       </div>
+
+      <div>
+
+        <strong id="modalAssetName">
+          Bank Central Asia
+        </strong>
+
+        <small id="modalPrice">
+          Rp8.750
+        </small>
+
+      </div>
+
     </div>
 
-    <div class="order-type">
-      <button id="buyType" class="active buy-type" onclick="setOrderType('buy')">BELI</button>
-      <button id="sellType" class="sell-type" onclick="setOrderType('sell')">JUAL</button>
+
+    <div class="order-tabs">
+
+      <button
+        id="buyTab"
+        class="active-buy"
+        onclick="setOrderType('buy')">
+        BELI
+      </button>
+
+      <button
+        id="sellTab"
+        onclick="setOrderType('sell')">
+        JUAL
+      </button>
+
     </div>
+
 
     <div class="field">
-      <label>Jumlah Unit</label>
-      <input id="quantity" type="number" min="1" value="1" oninput="updateOrderSummary()">
+
+      <label>
+        JUMLAH UNIT
+      </label>
+
+      <input
+        id="quantity"
+        type="number"
+        min="1"
+        value="1"
+        oninput="updateSummary()">
+
     </div>
 
-    <div class="order-summary">
+
+    <div class="summary">
+
       <div class="summary-row">
+
         <span>Harga</span>
-        <strong id="summaryPrice">Rp0</strong>
+
+        <strong id="summaryPrice">
+          Rp0
+        </strong>
+
       </div>
+
       <div class="summary-row">
+
         <span>Unit</span>
-        <strong id="summaryQty">1</strong>
+
+        <strong id="summaryQty">
+          1
+        </strong>
+
       </div>
+
       <div class="summary-row">
+
         <span>Total</span>
-        <strong id="summaryTotal">Rp0</strong>
+
+        <strong id="summaryTotal">
+          Rp0
+        </strong>
+
       </div>
+
     </div>
 
-    <button class="order-submit" id="submitOrder" onclick="executeOrder()">
+
+    <button
+      class="submit-order"
+      id="submitOrder"
+      onclick="executeOrder()">
       Konfirmasi Pembelian
     </button>
 
@@ -1066,145 +1799,464 @@ canvas{
 
 </div>
 
+
 <script>
 
-/* =========================
-   DATA
-========================= */
+/* =====================================================
+   ASSETS
+===================================================== */
 
 const assets = [
+
   {
     code:"BBCA",
     name:"Bank Central Asia",
     price:8750,
     change:1.82
   },
+
   {
     code:"BBRI",
     name:"Bank Rakyat Indonesia",
     price:5025,
-    change:0.94
+    change:.94
   },
+
   {
     code:"BMRI",
     name:"Bank Mandiri",
     price:6175,
-    change:-0.41
+    change:-.41
   },
+
   {
     code:"TLKM",
     name:"Telkom Indonesia",
     price:2850,
     change:1.13
   },
+
   {
     code:"ANTM",
     name:"Aneka Tambang",
     price:3120,
     change:-1.25
   },
+
   {
     code:"GOTO",
     name:"GoTo Gojek Tokopedia",
     price:72,
     change:2.76
   },
+
   {
     code:"BTC",
     name:"Bitcoin",
     price:985000000,
     change:2.41
   },
+
   {
     code:"ETH",
     name:"Ethereum",
     price:54800000,
     change:1.64
   }
+
 ];
 
-/* =========================
-   STATE
-========================= */
 
-let state = JSON.parse(localStorage.getItem("alfaInvest")) || {
-  cash:10000000,
-  holdings:{},
-  transactions:[]
-};
+/* =====================================================
+   AUTH
+===================================================== */
 
-let selectedAsset = null;
-let orderType = "buy";
+let authMode="login";
 
-/* =========================
-   FORMAT
-========================= */
+function switchAuth(mode){
 
-function rupiah(number){
+  authMode=mode;
 
-  return new Intl.NumberFormat("id-ID",{
-    style:"currency",
-    currency:"IDR",
-    maximumFractionDigits:0
-  }).format(number);
+  document
+    .getElementById("loginTab")
+    .classList.toggle("active",mode==="login");
 
-}
+  document
+    .getElementById("registerTab")
+    .classList.toggle("active",mode==="register");
 
-function numberFormat(number){
-
-  return new Intl.NumberFormat("id-ID").format(number);
+  document
+    .getElementById("authButtonText")
+    .textContent=
+      mode==="login"
+      ?"Masuk ke ALFA INVEST"
+      :"Buat Akun ALFA INVEST";
 
 }
 
-function save(){
+
+function handleAuth(event){
+
+  event.preventDefault();
+
+  const name=
+    document.getElementById("authName")
+    .value.trim();
+
+  const email=
+    document.getElementById("authEmail")
+    .value.trim()
+    .toLowerCase();
+
+  const password=
+    document.getElementById("authPassword")
+    .value;
+
+  if(password.length<6){
+
+    alert("Password minimal 6 karakter.");
+
+    return;
+
+  }
+
+  const accounts=
+    JSON.parse(
+      localStorage.getItem("alfaAccounts") || "{}"
+    );
+
+
+  if(authMode==="register"){
+
+    if(accounts[email]){
+
+      alert("Email sudah terdaftar.");
+
+      return;
+
+    }
+
+    accounts[email]={
+      name,
+      email,
+      password
+    };
+
+    localStorage.setItem(
+      "alfaAccounts",
+      JSON.stringify(accounts)
+    );
+
+    localStorage.setItem(
+      "alfaCurrentUser",
+      email
+    );
+
+    createAccountData(email);
+
+    alert(
+      "Akun berhasil dibuat.\nSaldo virtual Rp10.000.000 telah diberikan."
+    );
+
+    openApp();
+
+    return;
+
+  }
+
+
+  if(!accounts[email]){
+
+    alert(
+      "Akun belum ditemukan. Silakan daftar terlebih dahulu."
+    );
+
+    return;
+
+  }
+
+
+  if(accounts[email].password!==password){
+
+    alert("Password salah.");
+
+    return;
+
+  }
+
 
   localStorage.setItem(
-    "alfaInvest",
-    JSON.stringify(state)
+    "alfaCurrentUser",
+    email
+  );
+
+  createAccountData(email);
+
+  openApp();
+
+}
+
+
+function createAccountData(email){
+
+  const key=
+    "alfaInvestData_"+email;
+
+  if(!localStorage.getItem(key)){
+
+    const data={
+      cash:10000000,
+      holdings:{},
+      transactions:[]
+    };
+
+    localStorage.setItem(
+      key,
+      JSON.stringify(data)
+    );
+
+  }
+
+}
+
+
+function currentUser(){
+
+  const email=
+    localStorage.getItem("alfaCurrentUser");
+
+  if(!email) return null;
+
+  const accounts=
+    JSON.parse(
+      localStorage.getItem("alfaAccounts") || "{}"
+    );
+
+  return accounts[email] || null;
+
+}
+
+
+function getData(){
+
+  const user=
+    currentUser();
+
+  if(!user) return null;
+
+  const key=
+    "alfaInvestData_"+user.email;
+
+  return JSON.parse(
+    localStorage.getItem(key) ||
+    JSON.stringify({
+      cash:10000000,
+      holdings:{},
+      transactions:[]
+    })
   );
 
 }
 
-/* =========================
-   NAVIGATION
-========================= */
 
-function showPage(id,button){
+function saveData(data){
 
-  document.querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
+  const user=
+    currentUser();
 
-  document.getElementById(id)
-    .classList.add("active");
+  if(!user) return;
 
-  document.querySelectorAll(".nav button")
-    .forEach(b=>b.classList.remove("active"));
-
-  if(button){
-    button.classList.add("active");
-  }
-
-  const titles = {
-    dashboard:"Dashboard",
-    market:"Market",
-    portfolio:"Portfolio",
-    history:"Riwayat Transaksi"
-  };
-
-  document.getElementById("pageTitle").textContent =
-    titles[id] || "ALFA INVEST";
-
-  if(id==="dashboard") renderDashboard();
-  if(id==="market") renderMarket();
-  if(id==="portfolio") renderPortfolio();
-  if(id==="history") renderHistory();
+  localStorage.setItem(
+    "alfaInvestData_"+user.email,
+    JSON.stringify(data)
+  );
 
 }
 
+
+function openApp(){
+
+  document
+    .getElementById("authScreen")
+    .classList.add("hidden");
+
+  document
+    .getElementById("app")
+    .classList.remove("hidden");
+
+  document
+    .getElementById("mobileNav")
+    .classList.remove("hidden");
+
+  updateUserUI();
+
+  renderAll();
+
+}
+
+
+function logout(){
+
+  localStorage.removeItem("alfaCurrentUser");
+
+  document
+    .getElementById("app")
+    .classList.add("hidden");
+
+  document
+    .getElementById("mobileNav")
+    .classList.add("hidden");
+
+  document
+    .getElementById("authScreen")
+    .classList.remove("hidden");
+
+}
+
+
+function updateUserUI(){
+
+  const user=
+    currentUser();
+
+  if(!user) return;
+
+  const initial=
+    user.name.charAt(0).toUpperCase();
+
+  document
+    .getElementById("welcomeName")
+    .textContent=user.name;
+
+  document
+    .getElementById("topAvatar")
+    .textContent=initial;
+
+  document
+    .getElementById("profileAvatar")
+    .textContent=initial;
+
+  document
+    .getElementById("profileName")
+    .textContent=user.name;
+
+  document
+    .getElementById("profileEmail")
+    .textContent=user.email;
+
+}
+
+
+/* =====================================================
+   FORMAT
+===================================================== */
+
+function rupiah(value){
+
+  return new Intl.NumberFormat(
+    "id-ID",
+    {
+      style:"currency",
+      currency:"IDR",
+      maximumFractionDigits:0
+    }
+  ).format(value);
+
+}
+
+
+function numberFormat(value){
+
+  return new Intl.NumberFormat(
+    "id-ID"
+  ).format(value);
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function showPage(id,button){
+
+  document
+    .querySelectorAll(".page")
+    .forEach(page=>
+      page.classList.remove("active")
+    );
+
+  document
+    .getElementById(id)
+    .classList.add("active");
+
+
+  document
+    .querySelectorAll(".nav button")
+    .forEach(btn=>
+      btn.classList.remove("active")
+    );
+
+
+  if(button){
+
+    button.classList.add("active");
+
+  }else{
+
+    const navButton=
+      [...document.querySelectorAll(".nav button")]
+      .find(btn=>
+        btn.getAttribute("onclick") &&
+        btn.getAttribute("onclick").includes(
+          "'"+id+"'"
+        )
+      );
+
+    if(navButton)
+      navButton.classList.add("active");
+
+  }
+
+
+  const titles={
+    dashboard:"Dashboard",
+    market:"Market",
+    portfolio:"Portfolio",
+    history:"Riwayat Transaksi",
+    profile:"Profil Saya"
+  };
+
+  document
+    .getElementById("pageTitle")
+    .textContent=titles[id];
+
+
+  if(id==="dashboard")
+    renderDashboard();
+
+  if(id==="market")
+    renderMarket();
+
+  if(id==="portfolio")
+    renderPortfolio();
+
+  if(id==="history")
+    renderHistory();
+
+  if(id==="profile")
+    renderProfile();
+
+}
+
+
 function mobilePage(id,button){
 
-  document.querySelectorAll(".mobile-nav button")
-    .forEach(b=>b.classList.remove("active"));
+  document
+    .querySelectorAll(".mobile-nav button")
+    .forEach(btn=>
+      btn.classList.remove("active")
+    );
 
   button.classList.add("active");
 
@@ -1212,474 +2264,687 @@ function mobilePage(id,button){
 
 }
 
-/* =========================
-   TOTAL PORTFOLIO
-========================= */
 
-function portfolioValue(){
+/* =====================================================
+   PORTFOLIO VALUE
+===================================================== */
 
-  let total = state.cash;
+function investedValue(data){
 
-  Object.keys(state.holdings).forEach(code=>{
+  let total=0;
 
-    const asset = assets.find(a=>a.code===code);
+  Object.keys(data.holdings)
+    .forEach(code=>{
 
-    if(asset){
-      total += state.holdings[code].qty * asset.price;
-    }
+      const item=
+        data.holdings[code];
 
-  });
+      const asset=
+        assets.find(a=>a.code===code);
 
-  return total;
+      if(asset){
 
-}
+        total+=
+          item.qty*asset.price;
 
-function investedValue(){
+      }
 
-  let total = 0;
-
-  Object.keys(state.holdings).forEach(code=>{
-
-    const asset = assets.find(a=>a.code===code);
-
-    if(asset){
-      total += state.holdings[code].qty * asset.price;
-    }
-
-  });
+    });
 
   return total;
 
 }
 
-/* =========================
+
+function portfolioValue(data){
+
+  return data.cash+
+    investedValue(data);
+
+}
+
+
+/* =====================================================
    DASHBOARD
-========================= */
+===================================================== */
 
 function renderDashboard(){
 
-  const total = portfolioValue();
-  const profit = total - 10000000;
-  const percent = (profit / 10000000) * 100;
+  const data=
+    getData();
 
-  document.getElementById("heroBalance").textContent =
-    rupiah(total);
+  if(!data) return;
 
-  document.getElementById("heroCash").textContent =
-    rupiah(state.cash);
+  const total=
+    portfolioValue(data);
 
-  document.getElementById("totalProfit").textContent =
-    (profit >= 0 ? "+" : "") + rupiah(profit);
+  const profit=
+    total-10000000;
 
-  document.getElementById("totalProfit").className =
-    "stat-value " + (profit >= 0 ? "green" : "red");
+  const percent=
+    (profit/10000000)*100;
 
-  document.getElementById("totalReturn").textContent =
-    (percent >= 0 ? "+" : "") +
-    percent.toFixed(2).replace(".",",") +
+
+  document
+    .getElementById("totalBalance")
+    .textContent=rupiah(total);
+
+  document
+    .getElementById("cashBalance")
+    .textContent=rupiah(data.cash);
+
+
+  const profitEl=
+    document.getElementById("totalProfit");
+
+  profitEl.textContent=
+    (profit>=0?"+":"")+rupiah(profit);
+
+  profitEl.className=
+    "stat-value "+
+    (profit>=0?"green":"red");
+
+
+  const returnEl=
+    document.getElementById("totalReturn");
+
+  returnEl.textContent=
+    (percent>=0?"+":"")+
+    percent.toFixed(2).replace(".",",")+
     "%";
 
-  document.getElementById("assetCount").textContent =
-    Object.keys(state.holdings).filter(
-      code=>state.holdings[code].qty>0
-    ).length;
+  returnEl.className=
+    "stat-value "+
+    (percent>=0?"green":"red");
+
+
+  document
+    .getElementById("assetCount")
+    .textContent=
+      Object.keys(data.holdings)
+      .filter(code=>
+        data.holdings[code].qty>0
+      ).length;
+
+
+  document
+    .getElementById("transactionCount")
+    .textContent=
+      data.transactions.length;
+
 
   renderRecentTransactions();
+
   drawChart();
 
 }
 
-/* =========================
+
+/* =====================================================
    MARKET
-========================= */
+===================================================== */
 
 function renderMarket(){
 
-  const search =
-    document.getElementById("searchInput")?.value
-    .toLowerCase() || "";
+  const input=
+    document.getElementById("searchInput");
 
-  const list =
+  const search=
+    input?
+    input.value.toLowerCase()
+    :"";
+
+  const list=
     document.getElementById("marketList");
 
-  const filtered = assets.filter(asset=>
-    asset.code.toLowerCase().includes(search) ||
-    asset.name.toLowerCase().includes(search)
-  );
 
-  list.innerHTML = filtered.map(asset=>`
-
-    <div class="asset">
-
-      <div class="asset-left">
-
-        <div class="coin">
-          ${asset.code.substring(0,4)}
-        </div>
-
-        <div>
-          <div class="asset-name">${asset.name}</div>
-          <div class="asset-code">${asset.code} • Simulasi</div>
-        </div>
-
-      </div>
-
-      <div class="asset-price">
-
-        <div class="price">
-          ${rupiah(asset.price)}
-        </div>
-
-        <div class="change ${asset.change>=0?"green":"red"}">
-          ${asset.change>=0?"+":""}${asset.change}%
-        </div>
-
-      </div>
-
-      <div class="asset-actions">
-
-        <button class="buy"
-          onclick="openOrder('${asset.code}','buy')">
-          BELI
-        </button>
-
-        <button class="sell"
-          onclick="openOrder('${asset.code}','sell')">
-          JUAL
-        </button>
-
-      </div>
-
-    </div>
-
-  `).join("");
-
-}
-
-/* =========================
-   ORDER
-========================= */
-
-function openOrder(code,type){
-
-  selectedAsset =
-    assets.find(a=>a.code===code);
-
-  if(!selectedAsset) return;
-
-  orderType = type;
-
-  document.getElementById("modalTitle").textContent =
-    type==="buy" ? "Beli Aset" : "Jual Aset";
-
-  document.getElementById("modalIcon").textContent =
-    selectedAsset.code;
-
-  document.getElementById("modalAssetName").textContent =
-    selectedAsset.name;
-
-  document.getElementById("modalPrice").textContent =
-    rupiah(selectedAsset.price);
-
-  document.getElementById("quantity").value = 1;
-
-  setOrderType(type);
-
-  document.getElementById("orderModal")
-    .classList.add("show");
-
-  updateOrderSummary();
-
-}
-
-function closeModal(){
-
-  document.getElementById("orderModal")
-    .classList.remove("show");
-
-}
-
-function setOrderType(type){
-
-  orderType = type;
-
-  document.getElementById("buyType")
-    .classList.toggle("active",type==="buy");
-
-  document.getElementById("sellType")
-    .classList.toggle("active",type==="sell");
-
-  document.getElementById("submitOrder").textContent =
-    type==="buy"
-      ? "Konfirmasi Pembelian"
-      : "Konfirmasi Penjualan";
-
-  updateOrderSummary();
-
-}
-
-function updateOrderSummary(){
-
-  if(!selectedAsset) return;
-
-  let qty =
-    Math.max(
-      1,
-      Number(document.getElementById("quantity").value)||1
+  const filtered=
+    assets.filter(asset=>
+      asset.code.toLowerCase()
+      .includes(search) ||
+      asset.name.toLowerCase()
+      .includes(search)
     );
 
-  const total =
-    qty * selectedAsset.price;
 
-  document.getElementById("summaryPrice").textContent =
-    rupiah(selectedAsset.price);
+  list.innerHTML=
+    filtered.map(asset=>`
 
-  document.getElementById("summaryQty").textContent =
-    numberFormat(qty);
+      <div class="asset">
 
-  document.getElementById("summaryTotal").textContent =
-    rupiah(total);
+        <div class="asset-left">
 
-}
+          <div class="coin">
+            ${asset.code.substring(0,4)}
+          </div>
 
-/* =========================
-   EXECUTE
-========================= */
+          <div>
 
-function executeOrder(){
-
-  if(!selectedAsset) return;
-
-  const qty =
-    Math.max(
-      1,
-      Number(document.getElementById("quantity").value)||1
-    );
-
-  const total =
-    qty * selectedAsset.price;
-
-  const code =
-    selectedAsset.code;
-
-  const current =
-    state.holdings[code]?.qty || 0;
-
-  if(orderType==="buy"){
-
-    if(total > state.cash){
-
-      alert("Saldo virtual tidak mencukupi.");
-
-      return;
-
-    }
-
-    state.cash -= total;
-
-    if(!state.holdings[code]){
-      state.holdings[code] = {
-        qty:0,
-        invested:0
-      };
-    }
-
-    state.holdings[code].qty += qty;
-    state.holdings[code].invested += total;
-
-  }else{
-
-    if(current < qty){
-
-      alert(
-        "Jumlah unit yang Anda miliki tidak mencukupi."
-      );
-
-      return;
-
-    }
-
-    state.cash += total;
-
-    state.holdings[code].qty -= qty;
-    state.holdings[code].invested =
-      Math.max(
-        0,
-        state.holdings[code].invested -
-        (state.holdings[code].invested / current * qty)
-      );
-
-  }
-
-  state.transactions.unshift({
-    type:orderType,
-    code,
-    name:selectedAsset.name,
-    qty,
-    price:selectedAsset.price,
-    total,
-    date:new Date().toLocaleString("id-ID")
-  });
-
-  if(
-    state.holdings[code] &&
-    state.holdings[code].qty<=0
-  ){
-    delete state.holdings[code];
-  }
-
-  save();
-
-  closeModal();
-
-  renderDashboard();
-  renderMarket();
-  renderPortfolio();
-  renderHistory();
-
-  alert(
-    orderType==="buy"
-      ? "Pembelian virtual berhasil."
-      : "Penjualan virtual berhasil."
-  );
-
-}
-
-/* =========================
-   PORTFOLIO
-========================= */
-
-function renderPortfolio(){
-
-  const holdings =
-    document.getElementById("holdings");
-
-  const codes =
-    Object.keys(state.holdings);
-
-  let total = 0;
-
-  if(codes.length===0){
-
-    holdings.innerHTML = `
-      <div style="
-        padding:35px 10px;
-        text-align:center;
-        color:var(--muted);
-        font-size:13px;
-      ">
-        Belum ada aset.<br>
-        Mulai investasi dari menu Market.
-      </div>
-    `;
-
-  }else{
-
-    holdings.innerHTML =
-      codes.map(code=>{
-
-        const item =
-          state.holdings[code];
-
-        const asset =
-          assets.find(a=>a.code===code);
-
-        if(!asset) return "";
-
-        const value =
-          item.qty * asset.price;
-
-        total += value;
-
-        const profit =
-          value - item.invested;
-
-        return `
-
-          <div class="holding">
-
-            <div class="holding-left">
-
-              <div class="holding-icon">
-                ${code.substring(0,4)}
-              </div>
-
-              <div>
-                <div class="holding-name">
-                  ${asset.name}
-                </div>
-
-                <div class="holding-qty">
-                  ${numberFormat(item.qty)} unit
-                </div>
-              </div>
-
+            <div class="asset-name">
+              ${asset.name}
             </div>
 
-            <div class="holding-value">
-
-              ${rupiah(value)}
-
-              <div class="holding-profit
-                ${profit>=0?"green":"red"}">
-
-                ${profit>=0?"+":""}${rupiah(profit)}
-
-              </div>
-
+            <div class="asset-code">
+              ${asset.code}
+              • Simulasi
             </div>
 
           </div>
 
-        `;
+        </div>
 
-      }).join("");
 
-  }
+        <div class="asset-price">
 
-  document.getElementById("portfolioTotal").textContent =
-    rupiah(total);
+          <div class="price">
+            ${rupiah(asset.price)}
+          </div>
 
-  document.getElementById("portfolioCash").textContent =
-    rupiah(state.cash);
+          <div class="change ${
+            asset.change>=0
+            ?"green"
+            :"red"
+          }">
+
+            ${asset.change>=0?"+":""}
+            ${asset.change}%
+
+          </div>
+
+        </div>
+
+
+        <div class="asset-actions">
+
+          <button
+            class="buy"
+            onclick="openOrder(
+              '${asset.code}',
+              'buy'
+            )">
+            BELI
+          </button>
+
+          <button
+            class="sell"
+            onclick="openOrder(
+              '${asset.code}',
+              'sell'
+            )">
+            JUAL
+          </button>
+
+        </div>
+
+      </div>
+
+    `).join("");
 
 }
 
-/* =========================
-   HISTORY
-========================= */
 
-function renderHistory(){
+/* =====================================================
+   ORDER
+===================================================== */
 
-  const box =
-    document.getElementById("transactions");
+let selectedAsset=null;
+let orderType="buy";
 
-  if(state.transactions.length===0){
 
-    box.innerHTML = `
+function openOrder(code,type){
+
+  selectedAsset=
+    assets.find(a=>a.code===code);
+
+  if(!selectedAsset) return;
+
+  orderType=type;
+
+
+  document
+    .getElementById("modalTitle")
+    .textContent=
+      type==="buy"
+      ?"Beli Aset"
+      :"Jual Aset";
+
+
+  document
+    .getElementById("modalIcon")
+    .textContent=
+      selectedAsset.code;
+
+
+  document
+    .getElementById("modalAssetName")
+    .textContent=
+      selectedAsset.name;
+
+
+  document
+    .getElementById("modalPrice")
+    .textContent=
+      rupiah(selectedAsset.price);
+
+
+  document
+    .getElementById("quantity")
+    .value=1;
+
+
+  setOrderType(type);
+
+
+  document
+    .getElementById("orderModal")
+    .classList.add("show");
+
+
+  updateSummary();
+
+}
+
+
+function closeModal(){
+
+  document
+    .getElementById("orderModal")
+    .classList.remove("show");
+
+}
+
+
+function setOrderType(type){
+
+  orderType=type;
+
+  const buy=
+    document.getElementById("buyTab");
+
+  const sell=
+    document.getElementById("sellTab");
+
+
+  buy.className=
+    type==="buy"
+    ?"active-buy"
+    :"";
+
+
+  sell.className=
+    type==="sell"
+    ?"active-sell"
+    :"";
+
+
+  document
+    .getElementById("submitOrder")
+    .textContent=
+      type==="buy"
+      ?"Konfirmasi Pembelian"
+      :"Konfirmasi Penjualan";
+
+
+  updateSummary();
+
+}
+
+
+function updateSummary(){
+
+  if(!selectedAsset) return;
+
+  let qty=
+    Number(
+      document.getElementById("quantity").value
+    )||1;
+
+  if(qty<1) qty=1;
+
+  const total=
+    qty*selectedAsset.price;
+
+
+  document
+    .getElementById("summaryPrice")
+    .textContent=
+      rupiah(selectedAsset.price);
+
+
+  document
+    .getElementById("summaryQty")
+    .textContent=
+      numberFormat(qty);
+
+
+  document
+    .getElementById("summaryTotal")
+    .textContent=
+      rupiah(total);
+
+}
+
+
+/* =====================================================
+   EXECUTE ORDER
+===================================================== */
+
+function executeOrder(){
+
+  const data=
+    getData();
+
+  if(!data || !selectedAsset)
+    return;
+
+
+  const qty=
+    Math.max(
+      1,
+      Number(
+        document.getElementById("quantity").value
+      )||1
+    );
+
+
+  const total=
+    qty*selectedAsset.price;
+
+  const code=
+    selectedAsset.code;
+
+
+  const current=
+    data.holdings[code]?.qty || 0;
+
+
+  if(orderType==="buy"){
+
+    if(total>data.cash){
+
+      alert(
+        "Saldo virtual tidak mencukupi."
+      );
+
+      return;
+
+    }
+
+
+    data.cash-=total;
+
+
+    if(!data.holdings[code]){
+
+      data.holdings[code]={
+        qty:0,
+        invested:0
+      };
+
+    }
+
+
+    data.holdings[code].qty+=qty;
+
+    data.holdings[code].invested+=total;
+
+  }
+
+
+  else{
+
+    if(current<qty){
+
+      alert(
+        "Unit aset tidak mencukupi."
+      );
+
+      return;
+
+    }
+
+
+    data.cash+=total;
+
+
+    const oldInvested=
+      data.holdings[code].invested;
+
+
+    data.holdings[code].qty-=qty;
+
+
+    data.holdings[code].invested=
+      Math.max(
+        0,
+        oldInvested-
+        (oldInvested/current*qty)
+      );
+
+
+    if(data.holdings[code].qty<=0){
+
+      delete data.holdings[code];
+
+    }
+
+  }
+
+
+  data.transactions.unshift({
+
+    type:orderType,
+
+    code:code,
+
+    name:selectedAsset.name,
+
+    qty:qty,
+
+    price:selectedAsset.price,
+
+    total:total,
+
+    date:new Date()
+      .toLocaleString("id-ID")
+
+  });
+
+
+  saveData(data);
+
+  closeModal();
+
+  renderAll();
+
+  alert(
+    orderType==="buy"
+    ?"Pembelian virtual berhasil."
+    :"Penjualan virtual berhasil."
+  );
+
+}
+
+
+/* =====================================================
+   PORTFOLIO
+===================================================== */
+
+function renderPortfolio(){
+
+  const data=
+    getData();
+
+  if(!data) return;
+
+
+  const total=
+    investedValue(data);
+
+
+  document
+    .getElementById("portfolioTotal")
+    .textContent=
+      rupiah(total);
+
+
+  document
+    .getElementById("portfolioCash")
+    .textContent=
+      rupiah(data.cash);
+
+
+  const box=
+    document.getElementById("holdings");
+
+  const codes=
+    Object.keys(data.holdings);
+
+
+  if(codes.length===0){
+
+    box.innerHTML=`
+
       <div style="
-        padding:40px 0;
+        padding:35px 5px;
         text-align:center;
         color:var(--muted);
-        font-size:13px;
-      ">
-        Belum ada transaksi.
+        font-size:11px;">
+
+        Portfolio masih kosong.<br>
+        Silakan buka Market.
+
       </div>
+
     `;
 
     return;
 
   }
 
-  box.innerHTML =
-    state.transactions.map(tx=>`
+
+  box.innerHTML=
+    codes.map(code=>{
+
+      const item=
+        data.holdings[code];
+
+      const asset=
+        assets.find(a=>a.code===code);
+
+      if(!asset) return "";
+
+
+      const value=
+        item.qty*asset.price;
+
+      const profit=
+        value-item.invested;
+
+
+      return `
+
+        <div class="holding">
+
+          <div class="holding-left">
+
+            <div class="holding-icon">
+              ${code.substring(0,4)}
+            </div>
+
+            <div>
+
+              <div class="holding-name">
+                ${asset.name}
+              </div>
+
+              <div class="holding-qty">
+                ${numberFormat(item.qty)}
+                unit
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="holding-right">
+
+            <div class="holding-value">
+              ${rupiah(value)}
+            </div>
+
+            <div class="holding-profit ${
+              profit>=0
+              ?"green"
+              :"red"
+            }">
+
+              ${profit>=0?"+":""}
+              ${rupiah(profit)}
+
+            </div>
+
+          </div>
+
+        </div>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   HISTORY
+===================================================== */
+
+function renderHistory(){
+
+  const data=
+    getData();
+
+  if(!data) return;
+
+
+  const box=
+    document.getElementById("transactions");
+
+
+  if(data.transactions.length===0){
+
+    box.innerHTML=`
+
+      <div style="
+        padding:40px 0;
+        text-align:center;
+        color:var(--muted);
+        font-size:11px;">
+
+        Belum ada transaksi.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  box.innerHTML=
+    data.transactions.map(tx=>`
 
       <div class="transaction">
 
         <div class="tx-left">
 
-          <div class="tx-icon
-            ${tx.type==="buy"?"tx-buy":"tx-sell"}">
+          <div class="tx-icon ${
+            tx.type==="buy"
+            ?"tx-buy"
+            :"tx-sell"
+          }">
 
             ${tx.type==="buy"?"B":"J"}
 
@@ -1688,16 +2953,27 @@ function renderHistory(){
           <div>
 
             <div class="tx-name">
-              ${tx.type==="buy"?"Beli":"Jual"} ${tx.code}
+
+              ${tx.type==="buy"
+                ?"Beli"
+                :"Jual"}
+              ${tx.code}
+
             </div>
 
             <div class="tx-date">
-              ${tx.date} • ${numberFormat(tx.qty)} unit
+
+              ${tx.date}
+              •
+              ${numberFormat(tx.qty)}
+              unit
+
             </div>
 
           </div>
 
         </div>
+
 
         <div class="tx-value">
           ${rupiah(tx.total)}
@@ -1709,40 +2985,58 @@ function renderHistory(){
 
 }
 
+
 function renderRecentTransactions(){
 
-  const box =
-    document.getElementById("recentTransactions");
+  const data=
+    getData();
 
-  const list =
-    state.transactions.slice(0,4);
+  if(!data) return;
+
+
+  const box=
+    document.getElementById(
+      "recentTransactions"
+    );
+
+
+  const list=
+    data.transactions.slice(0,4);
+
 
   if(list.length===0){
 
-    box.innerHTML = `
+    box.innerHTML=`
+
       <div style="
         padding:25px 0;
         text-align:center;
         color:var(--muted);
-        font-size:12px;
-      ">
+        font-size:11px;">
+
         Belum ada aktivitas.
+
       </div>
+
     `;
 
     return;
 
   }
 
-  box.innerHTML =
+
+  box.innerHTML=
     list.map(tx=>`
 
       <div class="transaction">
 
         <div class="tx-left">
 
-          <div class="tx-icon
-            ${tx.type==="buy"?"tx-buy":"tx-sell"}">
+          <div class="tx-icon ${
+            tx.type==="buy"
+            ?"tx-buy"
+            :"tx-sell"
+          }">
 
             ${tx.type==="buy"?"B":"J"}
 
@@ -1751,7 +3045,10 @@ function renderRecentTransactions(){
           <div>
 
             <div class="tx-name">
-              ${tx.type==="buy"?"Beli":"Jual"} ${tx.code}
+              ${tx.type==="buy"
+                ?"Beli"
+                :"Jual"}
+              ${tx.code}
             </div>
 
             <div class="tx-date">
@@ -1772,166 +3069,349 @@ function renderRecentTransactions(){
 
 }
 
-/* =========================
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+function renderProfile(){
+
+  const user=
+    currentUser();
+
+  const data=
+    getData();
+
+  if(!user || !data)
+    return;
+
+
+  document
+    .getElementById("profileBalance")
+    .textContent=
+      rupiah(portfolioValue(data));
+
+
+  document
+    .getElementById("profileTransactions")
+    .textContent=
+      data.transactions.length;
+
+}
+
+
+/* =====================================================
    CHART
-========================= */
+===================================================== */
 
 function drawChart(){
 
-  const canvas =
+  const canvas=
     document.getElementById("chart");
 
   if(!canvas) return;
 
-  const ctx =
-    canvas.getContext("2d");
 
-  const rect =
+  const rect=
     canvas.getBoundingClientRect();
 
-  const dpr =
-    window.devicePixelRatio || 1;
+  const dpr=
+    window.devicePixelRatio||1;
 
-  canvas.width =
-    rect.width * dpr;
 
-  canvas.height =
-    rect.height * dpr;
+  canvas.width=
+    rect.width*dpr;
+
+  canvas.height=
+    rect.height*dpr;
+
+
+  const ctx=
+    canvas.getContext("2d");
 
   ctx.scale(dpr,dpr);
 
-  const w = rect.width;
-  const h = rect.height;
 
-  ctx.clearRect(0,0,w,h);
+  const w=rect.width;
+  const h=rect.height;
 
-  const values = [
+
+  ctx.clearRect(
+    0,0,w,h
+  );
+
+
+  const data=
+    getData();
+
+  if(!data) return;
+
+
+  const current=
+    portfolioValue(data);
+
+
+  const values=[
+
     10000000,
-    10150000,
-    10080000,
-    10300000,
-    10200000,
-    10500000,
+    10100000,
+    10070000,
+    10250000,
     10400000,
-    10800000,
-    10700000,
-    portfolioValue()
+    10320000,
+    10600000,
+    10750000,
+    10900000,
+    current
+
   ];
 
-  const min =
-    Math.min(...values) - 200000;
 
-  const max =
-    Math.max(...values) + 200000;
+  const min=
+    Math.min(...values)-200000;
+
+  const max=
+    Math.max(...values)+200000;
+
+
+  /* GRID */
+
+  ctx.strokeStyle=
+    getComputedStyle(document.body)
+    .getPropertyValue("--line");
+
+  ctx.lineWidth=1;
+
+
+  for(let i=1;i<5;i++){
+
+    const y=
+      (h/5)*i;
+
+    ctx.beginPath();
+
+    ctx.moveTo(0,y);
+
+    ctx.lineTo(w,y);
+
+    ctx.stroke();
+
+  }
+
+
+  /* LINE */
 
   ctx.beginPath();
 
-  values.forEach((value,i)=>{
 
-    const x =
-      10 + (i/(values.length-1))*(w-20);
+  values.forEach((value,index)=>{
 
-    const y =
-      h-15 -
-      ((value-min)/(max-min))*(h-30);
+    const x=
+      8+
+      (index/(values.length-1))*
+      (w-16);
 
-    if(i===0){
+    const y=
+      h-15-
+      ((value-min)/(max-min))*
+      (h-30);
+
+
+    if(index===0)
       ctx.moveTo(x,y);
-    }else{
+    else
       ctx.lineTo(x,y);
-    }
 
   });
 
-  ctx.lineWidth = 3;
-  ctx.strokeStyle =
-    getComputedStyle(document.documentElement)
-      .getPropertyValue("--primary");
+
+  ctx.strokeStyle=
+    getComputedStyle(document.body)
+    .getPropertyValue("--primary");
+
+  ctx.lineWidth=3;
 
   ctx.stroke();
 
-  values.forEach((value,i)=>{
 
-    const x =
-      10 + (i/(values.length-1))*(w-20);
+  /* LAST POINT */
 
-    const y =
-      h-15 -
-      ((value-min)/(max-min))*(h-30);
+  const lastX=w-8;
 
-    ctx.beginPath();
-    ctx.arc(x,y,4,0,Math.PI*2);
+  const lastY=
+    h-15-
+    ((values[values.length-1]-min)/
+    (max-min))*
+    (h-30);
 
-    ctx.fillStyle =
-      getComputedStyle(document.documentElement)
-        .getPropertyValue("--primary");
 
-    ctx.fill();
+  ctx.beginPath();
 
-  });
+  ctx.arc(
+    lastX,
+    lastY,
+    5,
+    0,
+    Math.PI*2
+  );
+
+  ctx.fillStyle=
+    getComputedStyle(document.body)
+    .getPropertyValue("--primary");
+
+  ctx.fill();
 
 }
 
-/* =========================
+
+/* =====================================================
    DARK MODE
-========================= */
+===================================================== */
 
 function toggleDark(){
 
-  document.body.classList.toggle("dark");
+  document
+    .body
+    .classList
+    .toggle("dark");
+
 
   localStorage.setItem(
     "alfaDark",
     document.body.classList.contains("dark")
   );
 
+
   drawChart();
 
 }
 
-/* =========================
+
+if(
+  localStorage.getItem("alfaDark")==="true"
+){
+
+  document
+    .body
+    .classList
+    .add("dark");
+
+}
+
+
+/* =====================================================
    RESET
-========================= */
+===================================================== */
 
 function resetSimulation(){
 
-  if(!confirm(
-    "Reset semua saldo, portfolio, dan transaksi?"
-  )){
-    return;
-  }
+  const user=
+    currentUser();
 
-  state = {
+  if(!user) return;
+
+
+  if(!confirm(
+    "Reset saldo, portfolio dan seluruh transaksi?"
+  )) return;
+
+
+  const data={
     cash:10000000,
     holdings:{},
     transactions:[]
   };
 
-  save();
+
+  saveData(data);
+
+  renderAll();
+
+  alert(
+    "Simulasi berhasil dikembalikan ke Rp10.000.000."
+  );
+
+}
+
+
+function resetAccount(){
+
+  const user=
+    currentUser();
+
+  if(!user) return;
+
+
+  if(!confirm(
+    "Hapus seluruh data investasi akun ini?"
+  )) return;
+
+
+  localStorage.removeItem(
+    "alfaInvestData_"+user.email
+  );
+
+
+  createAccountData(user.email);
+
+  renderAll();
+
+  alert(
+    "Data investasi berhasil direset."
+  );
+
+}
+
+
+/* =====================================================
+   RENDER ALL
+===================================================== */
+
+function renderAll(){
+
+  updateUserUI();
 
   renderDashboard();
+
   renderMarket();
+
   renderPortfolio();
+
   renderHistory();
 
-  alert("Simulasi berhasil direset.");
+  renderProfile();
 
 }
 
-/* =========================
-   INIT
-========================= */
 
-if(localStorage.getItem("alfaDark")==="true"){
-  document.body.classList.add("dark");
-}
+/* =====================================================
+   START
+===================================================== */
 
-renderDashboard();
-renderMarket();
-renderPortfolio();
-renderHistory();
+window.addEventListener(
+  "resize",
+  drawChart
+);
 
-window.addEventListener("resize",drawChart);
+
+window.addEventListener(
+  "load",
+  ()=>{
+
+    const current=
+      localStorage.getItem(
+        "alfaCurrentUser"
+      );
+
+
+    if(current){
+
+      openApp();
+
+    }
+
+  }
+);
 
 </script>
 
