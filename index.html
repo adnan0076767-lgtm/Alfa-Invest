@@ -2,22 +2,18 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-<title>ALFA INVEST V6</title>
-<meta name="description" content="ALFA INVEST V6 - Simulasi investasi saham profesional.">
+<title>ALFA INVEST V7</title>
+<meta name="description" content="ALFA INVEST V7 - Simulasi investasi saham profesional.">
 
 <style>
-*{
-  box-sizing:border-box;
-  margin:0;
-  padding:0;
-}
+*{box-sizing:border-box;margin:0;padding:0}
 
 :root{
   --bg:#07111f;
-  --card:#0d1b2d;
-  --card2:#102238;
+  --panel:#0d1b2d;
+  --panel2:#102238;
   --text:#f4f7fb;
   --muted:#8ea3ba;
   --line:rgba(255,255,255,.08);
@@ -25,56 +21,45 @@
   --red:#ff5571;
   --blue:#4da3ff;
   --gold:#f5c451;
-  --shadow:0 15px 40px rgba(0,0,0,.25);
+  --shadow:0 18px 45px rgba(0,0,0,.28);
 }
 
 body{
   font-family:Inter,Segoe UI,Arial,sans-serif;
   background:
-    radial-gradient(circle at top right,rgba(77,163,255,.12),transparent 30%),
+    radial-gradient(circle at top right,rgba(77,163,255,.12),transparent 32%),
     radial-gradient(circle at bottom left,rgba(32,216,137,.08),transparent 30%),
     var(--bg);
   color:var(--text);
   min-height:100vh;
 }
 
-button,input,select{
-  font:inherit;
-}
+button,input,select{font:inherit}
+button{cursor:pointer}
 
-button{
-  cursor:pointer;
-}
+.app{min-height:100vh}
 
-.app{
-  display:flex;
-  min-height:100vh;
-}
-
-/* SIDEBAR */
 .sidebar{
-  width:250px;
-  background:rgba(8,20,34,.96);
-  border-right:1px solid var(--line);
-  padding:25px 16px;
   position:fixed;
   left:0;
   top:0;
   bottom:0;
-  z-index:20;
+  width:250px;
+  padding:25px 16px;
+  background:rgba(8,20,34,.97);
+  border-right:1px solid var(--line);
+  z-index:30;
 }
 
 .logo{
+  padding:0 12px;
+  margin-bottom:30px;
   font-size:23px;
   font-weight:900;
   letter-spacing:1px;
-  margin-bottom:30px;
-  padding:0 12px;
 }
 
-.logo span{
-  color:var(--green);
-}
+.logo span{color:var(--green)}
 
 .nav{
   display:flex;
@@ -98,28 +83,24 @@ button{
   color:var(--green);
 }
 
-.sidebar-bottom{
+.simulation{
   position:absolute;
   left:16px;
   right:16px;
   bottom:25px;
-}
-
-.simulation{
   padding:13px;
+  border-radius:12px;
   background:rgba(245,196,81,.08);
   border:1px solid rgba(245,196,81,.18);
-  border-radius:12px;
   color:#d9c27d;
   font-size:12px;
   line-height:1.5;
 }
 
-/* MAIN */
 .main{
   margin-left:250px;
-  width:calc(100% - 250px);
   padding:28px;
+  width:calc(100% - 250px);
 }
 
 .topbar{
@@ -157,29 +138,22 @@ button{
   font-weight:900;
 }
 
-/* PAGES */
-.page{
-  display:none;
+.page{display:none}
+.page.active{display:block}
+
+.card{
+  background:linear-gradient(145deg,rgba(16,34,56,.97),rgba(9,24,40,.97));
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:20px;
+  box-shadow:var(--shadow);
 }
 
-.page.active{
-  display:block;
-}
-
-/* DASHBOARD */
 .balance-grid{
   display:grid;
   grid-template-columns:repeat(4,1fr);
   gap:16px;
   margin-bottom:20px;
-}
-
-.card{
-  background:linear-gradient(145deg,rgba(16,34,56,.96),rgba(9,24,40,.96));
-  border:1px solid var(--line);
-  border-radius:18px;
-  padding:20px;
-  box-shadow:var(--shadow);
 }
 
 .stat-title{
@@ -193,21 +167,10 @@ button{
   font-weight:800;
 }
 
-.green{
-  color:var(--green);
-}
-
-.red{
-  color:var(--red);
-}
-
-.blue{
-  color:var(--blue);
-}
-
-.gold{
-  color:var(--gold);
-}
+.green{color:var(--green)}
+.red{color:var(--red)}
+.blue{color:var(--blue)}
+.gold{color:var(--gold)}
 
 .dashboard-grid{
   display:grid;
@@ -215,37 +178,29 @@ button{
   gap:18px;
 }
 
-.chart-box{
-  min-height:340px;
-}
+.chart-card{min-height:350px}
 
 .section-title{
   display:flex;
   justify-content:space-between;
   align-items:center;
+  gap:10px;
   margin-bottom:18px;
 }
 
-.section-title h2{
-  font-size:18px;
-}
-
-.section-title span{
-  color:var(--muted);
-  font-size:12px;
-}
+.section-title h2{font-size:18px}
+.section-title span{font-size:12px;color:var(--muted)}
 
 canvas{
   width:100%;
   height:250px;
 }
 
-/* MARKET */
 .market-toolbar{
   display:flex;
   gap:10px;
-  margin-bottom:18px;
   flex-wrap:wrap;
+  margin-bottom:18px;
 }
 
 .search{
@@ -270,8 +225,9 @@ canvas{
 }
 
 .stock{
+  position:relative;
   display:grid;
-  grid-template-columns:2fr 1fr 1fr 110px 70px;
+  grid-template-columns:2fr 1fr 1fr 100px 45px;
   align-items:center;
   gap:12px;
   padding:15px;
@@ -299,44 +255,33 @@ canvas{
   display:grid;
   place-items:center;
   background:#162b44;
-  color:white;
   font-size:11px;
   font-weight:900;
 }
 
-.stock-name strong{
-  display:block;
-}
-
+.stock-name strong{display:block}
 .stock-name small{
+  display:block;
   color:var(--muted);
+  margin-top:3px;
 }
 
-.price{
-  font-weight:800;
-}
+.price{font-weight:800}
 
-.change{
-  font-size:13px;
-}
+.change{font-size:13px}
 
 .btn{
   border:0;
   border-radius:10px;
   padding:10px 13px;
-  font-weight:700;
+  font-weight:800;
   color:#06101c;
   background:var(--green);
 }
 
-.btn:hover{
-  filter:brightness(1.08);
-}
+.btn:hover{filter:brightness(1.08)}
 
-.btn-blue{
-  background:var(--blue);
-}
-
+.btn-blue{background:var(--blue)}
 .btn-red{
   background:var(--red);
   color:white;
@@ -349,14 +294,19 @@ canvas{
   font-size:21px;
 }
 
-.star.active{
-  color:var(--gold);
+.star.active{color:var(--gold)}
+
+.watch-item{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:12px 0;
+  border-bottom:1px solid var(--line);
 }
 
-/* TABLE */
-.table-wrap{
-  overflow:auto;
-}
+.watch-item:last-child{border-bottom:0}
+
+.table-wrap{overflow:auto}
 
 table{
   width:100%;
@@ -375,15 +325,12 @@ th{
   font-size:12px;
 }
 
-td{
-  font-size:13px;
-}
+td{font-size:13px}
 
-/* MODAL */
 .modal{
   position:fixed;
   inset:0;
-  background:rgba(0,0,0,.68);
+  background:rgba(0,0,0,.72);
   display:none;
   align-items:center;
   justify-content:center;
@@ -391,18 +338,18 @@ td{
   z-index:100;
 }
 
-.modal.show{
-  display:flex;
-}
+.modal.show{display:flex}
 
 .modal-box{
   width:100%;
-  max-width:430px;
+  max-width:480px;
+  max-height:90vh;
+  overflow:auto;
   background:#0d1b2d;
   border:1px solid var(--line);
   border-radius:20px;
   padding:24px;
-  box-shadow:0 25px 70px rgba(0,0,0,.45);
+  box-shadow:0 25px 70px rgba(0,0,0,.5);
 }
 
 .modal-head{
@@ -416,12 +363,10 @@ td{
   border:0;
   background:transparent;
   color:white;
-  font-size:24px;
+  font-size:26px;
 }
 
-.form-group{
-  margin-bottom:14px;
-}
+.form-group{margin-bottom:14px}
 
 .form-group label{
   display:block;
@@ -447,7 +392,105 @@ td{
   margin-top:18px;
 }
 
-/* PROFILE */
+.detail-top{
+  display:grid;
+  grid-template-columns:1.5fr 1fr;
+  gap:18px;
+  margin-bottom:18px;
+}
+
+.detail-main{
+  display:flex;
+  align-items:center;
+  gap:16px;
+}
+
+.detail-logo{
+  width:70px;
+  height:70px;
+  border-radius:20px;
+  display:grid;
+  place-items:center;
+  background:linear-gradient(135deg,#15304d,#102238);
+  border:1px solid var(--line);
+  font-weight:900;
+  font-size:18px;
+}
+
+.detail-code{
+  font-size:28px;
+  font-weight:900;
+}
+
+.detail-name{
+  color:var(--muted);
+  margin-top:4px;
+}
+
+.detail-price{
+  margin-top:14px;
+  font-size:32px;
+  font-weight:900;
+}
+
+.detail-change{
+  margin-top:6px;
+  font-size:14px;
+}
+
+.detail-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  justify-content:flex-end;
+  align-items:center;
+}
+
+.detail-actions .btn{
+  min-width:100px;
+}
+
+.stock-info{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:10px;
+  margin-bottom:18px;
+}
+
+.info-box{
+  padding:15px;
+  background:#081625;
+  border:1px solid var(--line);
+  border-radius:13px;
+}
+
+.info-box small{
+  display:block;
+  color:var(--muted);
+  margin-bottom:7px;
+  font-size:11px;
+}
+
+.info-box strong{
+  font-size:14px;
+}
+
+.detail-chart{
+  min-height:350px;
+}
+
+.detail-chart canvas{
+  height:290px;
+}
+
+.holding-box{
+  margin-top:18px;
+  padding:18px;
+  border-radius:15px;
+  background:rgba(32,216,137,.06);
+  border:1px solid rgba(32,216,137,.13);
+}
+
 .profile-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -460,23 +503,15 @@ td{
 }
 
 .profile-item small{
-  color:var(--muted);
   display:block;
+  color:var(--muted);
   margin-bottom:5px;
 }
 
-.danger{
-  background:rgba(255,85,113,.08);
-  border:1px solid rgba(255,85,113,.18);
-  color:#ff9aac;
-}
-
-/* MOBILE NAV */
 .mobile-nav{
   display:none;
 }
 
-/* TOAST */
 .toast{
   position:fixed;
   right:20px;
@@ -498,8 +533,8 @@ td{
   opacity:1;
 }
 
-/* RESPONSIVE */
 @media(max-width:1100px){
+
   .balance-grid{
     grid-template-columns:repeat(2,1fr);
   }
@@ -508,15 +543,22 @@ td{
     grid-template-columns:1fr;
   }
 
-  .stock{
-    grid-template-columns:2fr 1fr 1fr 90px 50px;
+  .detail-top{
+    grid-template-columns:1fr;
+  }
+
+  .detail-actions{
+    justify-content:flex-start;
+  }
+
+  .stock-info{
+    grid-template-columns:repeat(2,1fr);
   }
 }
 
 @media(max-width:760px){
-  .sidebar{
-    display:none;
-  }
+
+  .sidebar{display:none}
 
   .main{
     margin-left:0;
@@ -549,7 +591,6 @@ td{
 
   .stock{
     grid-template-columns:1fr auto;
-    gap:8px;
   }
 
   .stock > .price,
@@ -564,7 +605,20 @@ td{
 
   .stock > .star{
     position:absolute;
-    margin-left:calc(100% - 55px);
+    right:10px;
+    top:10px;
+  }
+
+  .detail-code{font-size:24px}
+
+  .detail-price{font-size:27px}
+
+  .stock-info{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .profile-grid{
+    grid-template-columns:1fr;
   }
 
   .mobile-nav{
@@ -592,14 +646,6 @@ td{
   .mobile-nav button.active{
     color:var(--green);
   }
-
-  .profile-grid{
-    grid-template-columns:1fr;
-  }
-
-  .table-wrap{
-    margin:0 -5px;
-  }
 }
 </style>
 </head>
@@ -608,7 +654,6 @@ td{
 
 <div class="app">
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
 
   <div class="logo">
@@ -616,68 +661,106 @@ td{
   </div>
 
   <nav class="nav">
-    <button class="active" onclick="showPage('dashboard',this)">🏠 Dashboard</button>
-    <button onclick="showPage('market',this)">📈 Market</button>
-    <button onclick="showPage('portfolio',this)">💼 Portfolio</button>
-    <button onclick="showPage('history',this)">🧾 Riwayat</button>
-    <button onclick="showPage('profile',this)">👤 Profil</button>
+
+    <button class="active"
+      onclick="showPage('dashboard',this)">
+      🏠 Dashboard
+    </button>
+
+    <button
+      onclick="showPage('market',this)">
+      📈 Market
+    </button>
+
+    <button
+      onclick="showPage('detail',this)">
+      🔎 Detail Saham
+    </button>
+
+    <button
+      onclick="showPage('portfolio',this)">
+      💼 Portfolio
+    </button>
+
+    <button
+      onclick="showPage('history',this)">
+      🧾 Riwayat
+    </button>
+
+    <button
+      onclick="showPage('profile',this)">
+      👤 Profil
+    </button>
+
   </nav>
 
-  <div class="sidebar-bottom">
-    <div class="simulation">
-      ⚠️ <strong>MODE SIMULASI</strong><br>
-      Semua saldo, transaksi dan harga pada aplikasi ini adalah virtual.
-    </div>
+  <div class="simulation">
+    ⚠️ <strong>MODE SIMULASI</strong><br>
+    Seluruh saldo, transaksi dan harga pada aplikasi ini adalah virtual.
   </div>
 
 </aside>
 
 
-<!-- MAIN -->
 <main class="main">
 
   <div class="topbar">
 
     <div class="page-title">
       <h1 id="pageTitle">Dashboard</h1>
-      <p>Kelola portofolio investasi virtual Anda.</p>
+      <p id="pageSubtitle">
+        Kelola portofolio investasi virtual Anda.
+      </p>
     </div>
 
     <div class="user-box">
+
       <div>
         <strong id="userName">Investor</strong><br>
-        <small style="color:var(--muted)">Akun Simulasi</small>
+        <small style="color:var(--muted)">
+          Akun Simulasi
+        </small>
       </div>
 
       <div class="avatar" id="avatar">A</div>
+
     </div>
 
   </div>
 
 
   <!-- DASHBOARD -->
+
   <section class="page active" id="dashboard">
 
     <div class="balance-grid">
 
       <div class="card">
         <div class="stat-title">Total Aset</div>
-        <div class="stat-value" id="totalAssets">Rp10.000.000</div>
+        <div class="stat-value" id="totalAssets">
+          Rp10.000.000
+        </div>
       </div>
 
       <div class="card">
         <div class="stat-title">Saldo Cash</div>
-        <div class="stat-value blue" id="cashBalance">Rp10.000.000</div>
+        <div class="stat-value blue" id="cashBalance">
+          Rp10.000.000
+        </div>
       </div>
 
       <div class="card">
         <div class="stat-title">Nilai Portfolio</div>
-        <div class="stat-value" id="portfolioValue">Rp0</div>
+        <div class="stat-value" id="portfolioValue">
+          Rp0
+        </div>
       </div>
 
       <div class="card">
         <div class="stat-title">Profit / Loss</div>
-        <div class="stat-value green" id="profitLoss">Rp0</div>
+        <div class="stat-value green" id="profitLoss">
+          Rp0
+        </div>
       </div>
 
     </div>
@@ -685,14 +768,14 @@ td{
 
     <div class="dashboard-grid">
 
-      <div class="card chart-box">
+      <div class="card chart-card">
 
         <div class="section-title">
           <h2>Performa Portfolio</h2>
           <span>Simulasi</span>
         </div>
 
-        <canvas id="chart"></canvas>
+        <canvas id="dashboardChart"></canvas>
 
       </div>
 
@@ -701,7 +784,9 @@ td{
 
         <div class="section-title">
           <h2>Watchlist</h2>
-          <span id="watchCount">0 saham</span>
+          <span id="watchCount">
+            0 saham
+          </span>
         </div>
 
         <div id="watchlistDashboard"></div>
@@ -714,35 +799,220 @@ td{
 
 
   <!-- MARKET -->
+
   <section class="page" id="market">
 
     <div class="card">
 
       <div class="section-title">
         <h2>Pasar Saham</h2>
-        <span id="marketCount">0 saham</span>
+        <span id="marketCount">
+          0 saham
+        </span>
       </div>
 
       <div class="market-toolbar">
 
         <div class="search">
+
           <input
             id="searchInput"
             type="text"
             placeholder="🔎 Cari kode atau nama saham..."
             oninput="renderMarket()"
           >
+
         </div>
 
         <div style="min-width:180px">
-          <select id="sectorFilter" class="filter" onchange="renderMarket()">
-            <option value="all">Semua Sektor</option>
+
+          <select
+            id="sectorFilter"
+            class="filter"
+            onchange="renderMarket()">
+
+            <option value="all">
+              Semua Sektor
+            </option>
+
           </select>
+
         </div>
 
       </div>
 
-      <div class="market-list" id="marketList"></div>
+      <div
+        class="market-list"
+        id="marketList">
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- DETAIL -->
+
+  <section class="page" id="detail">
+
+    <div class="detail-top">
+
+      <div class="card">
+
+        <div class="detail-main">
+
+          <div
+            class="detail-logo"
+            id="detailLogo">
+            BBCA
+          </div>
+
+          <div>
+
+            <div
+              class="detail-code"
+              id="detailCode">
+              BBCA
+            </div>
+
+            <div
+              class="detail-name"
+              id="detailName">
+              Bank Central Asia
+            </div>
+
+            <div
+              class="detail-price"
+              id="detailPrice">
+              Rp9.250
+            </div>
+
+            <div
+              class="detail-change green"
+              id="detailChange">
+              ▲ 1.24%
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <div class="card">
+
+        <div class="section-title">
+          <h2>Aksi</h2>
+          <span>Simulasi</span>
+        </div>
+
+        <div class="detail-actions">
+
+          <button
+            class="btn"
+            onclick="openTrade(selectedDetail,'buy')">
+            Beli
+          </button>
+
+          <button
+            class="btn btn-red"
+            onclick="openTrade(selectedDetail,'sell')">
+            Jual
+          </button>
+
+          <button
+            class="btn btn-blue"
+            onclick="toggleDetailWatch()">
+            ⭐ Watchlist
+          </button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="stock-info">
+
+      <div class="info-box">
+
+        <small>Sektor</small>
+
+        <strong id="detailSector">
+          Bank
+        </strong>
+
+      </div>
+
+      <div class="info-box">
+
+        <small>Harga Simulasi</small>
+
+        <strong id="detailPriceInfo">
+          Rp9.250
+        </strong>
+
+      </div>
+
+      <div class="info-box">
+
+        <small>Perubahan</small>
+
+        <strong id="detailChangeInfo">
+          +1.24%
+        </strong>
+
+      </div>
+
+      <div class="info-box">
+
+        <small>Status</small>
+
+        <strong class="green">
+          Aktif
+        </strong>
+
+      </div>
+
+    </div>
+
+
+    <div class="card detail-chart">
+
+      <div class="section-title">
+
+        <h2>
+          Grafik Harga
+        </h2>
+
+        <span>
+          Simulasi pergerakan
+        </span>
+
+      </div>
+
+      <canvas id="detailChart"></canvas>
+
+    </div>
+
+
+    <div class="card holding-box">
+
+      <div class="section-title">
+
+        <h2>
+          Kepemilikan Anda
+        </h2>
+
+        <span id="detailHoldingStatus">
+          Belum memiliki saham
+        </span>
+
+      </div>
+
+      <div id="detailHolding"></div>
 
     </div>
 
@@ -750,13 +1020,21 @@ td{
 
 
   <!-- PORTFOLIO -->
+
   <section class="page" id="portfolio">
 
     <div class="card">
 
       <div class="section-title">
-        <h2>Portfolio Saya</h2>
-        <span>Investasi virtual</span>
+
+        <h2>
+          Portfolio Saya
+        </h2>
+
+        <span>
+          Investasi virtual
+        </span>
+
       </div>
 
       <div class="table-wrap">
@@ -764,6 +1042,7 @@ td{
         <table>
 
           <thead>
+
             <tr>
               <th>Saham</th>
               <th>Lot</th>
@@ -773,6 +1052,7 @@ td{
               <th>P/L</th>
               <th>Aksi</th>
             </tr>
+
           </thead>
 
           <tbody id="portfolioTable"></tbody>
@@ -787,13 +1067,21 @@ td{
 
 
   <!-- HISTORY -->
+
   <section class="page" id="history">
 
     <div class="card">
 
       <div class="section-title">
-        <h2>Riwayat Transaksi</h2>
-        <span id="historyCount">0 transaksi</span>
+
+        <h2>
+          Riwayat Transaksi
+        </h2>
+
+        <span id="historyCount">
+          0 transaksi
+        </span>
+
       </div>
 
       <div class="table-wrap">
@@ -801,6 +1089,7 @@ td{
         <table>
 
           <thead>
+
             <tr>
               <th>Waktu</th>
               <th>Aksi</th>
@@ -809,6 +1098,7 @@ td{
               <th>Harga</th>
               <th>Total</th>
             </tr>
+
           </thead>
 
           <tbody id="historyTable"></tbody>
@@ -823,6 +1113,7 @@ td{
 
 
   <!-- PROFILE -->
+
   <section class="page" id="profile">
 
     <div class="profile-grid">
@@ -835,17 +1126,23 @@ td{
 
         <div class="profile-item">
           <small>Nama</small>
-          <strong id="profileName">Investor</strong>
+          <strong id="profileName">
+            Investor
+          </strong>
         </div>
 
         <div class="profile-item">
           <small>Email</small>
-          <strong id="profileEmail">investor@alfainvest.local</strong>
+          <strong id="profileEmail">
+            investor@alfainvest.local
+          </strong>
         </div>
 
         <div class="profile-item">
           <small>Status</small>
-          <strong class="green">Akun Simulasi Aktif</strong>
+          <strong class="green">
+            Akun Simulasi Aktif
+          </strong>
         </div>
 
       </div>
@@ -857,15 +1154,17 @@ td{
           <h2>Pengaturan</h2>
         </div>
 
-        <button class="btn" style="width:100%;margin-bottom:10px" onclick="toggleTheme()">
+        <button
+          class="btn"
+          style="width:100%;margin-bottom:10px"
+          onclick="toggleTheme()">
           🌙 Mode Tampilan
         </button>
 
         <button
           class="btn btn-red"
           style="width:100%"
-          onclick="resetSimulation()"
-        >
+          onclick="resetSimulation()">
           ♻️ Reset Simulasi
         </button>
 
@@ -879,25 +1178,32 @@ td{
 
 
 <!-- MOBILE NAV -->
+
 <nav class="mobile-nav">
 
-  <button class="active" onclick="mobileNav('dashboard',this)">
+  <button
+    class="active"
+    onclick="mobileNav('dashboard',this)">
     🏠<br>Home
   </button>
 
-  <button onclick="mobileNav('market',this)">
+  <button
+    onclick="mobileNav('market',this)">
     📈<br>Market
   </button>
 
-  <button onclick="mobileNav('portfolio',this)">
+  <button
+    onclick="mobileNav('detail',this)">
+    🔎<br>Detail
+  </button>
+
+  <button
+    onclick="mobileNav('portfolio',this)">
     💼<br>Portfolio
   </button>
 
-  <button onclick="mobileNav('history',this)">
-    🧾<br>Riwayat
-  </button>
-
-  <button onclick="mobileNav('profile',this)">
+  <button
+    onclick="mobileNav('profile',this)">
     👤<br>Profil
   </button>
 
@@ -906,63 +1212,89 @@ td{
 </div>
 
 
-<!-- BUY/SELL MODAL -->
+<!-- TRADE MODAL -->
+
 <div class="modal" id="tradeModal">
 
   <div class="modal-box">
 
     <div class="modal-head">
-      <h2 id="modalTitle">Beli Saham</h2>
-      <button class="close" onclick="closeModal()">×</button>
+
+      <h2 id="modalTitle">
+        Beli Saham
+      </h2>
+
+      <button
+        class="close"
+        onclick="closeModal()">
+        ×
+      </button>
+
     </div>
+
 
     <div style="margin-bottom:18px">
-      <strong id="modalStockName">BBCA</strong>
-      <div style="color:var(--muted);font-size:12px" id="modalStockPrice">
-        Rp9.000
+
+      <strong id="modalStockName">
+        BBCA
+      </strong>
+
+      <div
+        style="color:var(--muted);font-size:12px"
+        id="modalStockPrice">
+        Rp9.250 per lembar
       </div>
+
     </div>
 
+
     <div class="form-group">
-      <label>Jumlah Lot</label>
+
+      <label>
+        Jumlah Lot
+      </label>
+
       <input
         type="number"
         id="lotInput"
         min="1"
         value="1"
-        oninput="updateTradeTotal()"
-      >
+        oninput="updateTradeTotal()">
+
     </div>
 
-    <div
-      style="
+
+    <div style="
       padding:14px;
       background:#081625;
       border-radius:12px;
       margin-bottom:10px;
-      "
-    >
-      <small style="color:var(--muted)">Estimasi Total</small>
-      <div id="tradeTotal" style="font-size:20px;font-weight:800">
+    ">
+
+      <small style="color:var(--muted)">
+        Estimasi Total
+      </small>
+
+      <div
+        id="tradeTotal"
+        style="font-size:20px;font-weight:800">
         Rp0
       </div>
+
     </div>
+
 
     <div class="modal-actions">
 
       <button
         class="btn"
-        id="confirmBuy"
-        onclick="confirmTrade('buy')"
-      >
+        onclick="confirmTrade('buy')">
         Beli
       </button>
 
       <button
         class="btn btn-red"
-        id="confirmSell"
-        onclick="confirmTrade('sell')"
-      >
+        onclick="confirmTrade('sell')">
         Jual
       </button>
 
@@ -973,64 +1305,67 @@ td{
 </div>
 
 
-<div class="toast" id="toast"></div>
+<div
+  class="toast"
+  id="toast">
+</div>
 
 
 <script>
 
-/* ==============================
+/* =====================================
    DATA SAHAM
-============================== */
+===================================== */
 
 const stocks = [
 
   {code:"BBCA",name:"Bank Central Asia",sector:"Bank",price:9250,change:1.24},
-  {code:"BBRI",name:"Bank Rakyat Indonesia",sector:"Bank",price:4850,change:0.82},
+  {code:"BBRI",name:"Bank Rakyat Indonesia",sector:"Bank",price:4850,change:.82},
   {code:"BMRI",name:"Bank Mandiri",sector:"Bank",price:5850,change:1.45},
-  {code:"BBNI",name:"Bank Negara Indonesia",sector:"Bank",price:5150,change:-0.31},
+  {code:"BBNI",name:"Bank Negara Indonesia",sector:"Bank",price:5150,change:-.31},
   {code:"BRIS",name:"Bank Syariah Indonesia",sector:"Bank",price:2670,change:2.18},
-  {code:"BBTN",name:"Bank Tabungan Negara",sector:"Bank",price:1490,change:0.55},
+  {code:"BBTN",name:"Bank Tabungan Negara",sector:"Bank",price:1490,change:.55},
 
-  {code:"TLKM",name:"Telkom Indonesia",sector:"Telekomunikasi",price:2850,change:-0.42},
+  {code:"TLKM",name:"Telkom Indonesia",sector:"Telekomunikasi",price:2850,change:-.42},
   {code:"EXCL",name:"XL Axiata",sector:"Telekomunikasi",price:2420,change:1.02},
-  {code:"ISAT",name:"Indosat",sector:"Telekomunikasi",price:2480,change:0.88},
-  {code:"TOWR",name:"Sarana Menara Nusantara",sector:"Telekomunikasi",price:790,change:-0.25},
+  {code:"ISAT",name:"Indosat",sector:"Telekomunikasi",price:2480,change:.88},
+  {code:"TOWR",name:"Sarana Menara Nusantara",sector:"Telekomunikasi",price:790,change:-.25},
 
-  {code:"ASII",name:"Astra International",sector:"Otomotif",price:4850,change:0.67},
+  {code:"ASII",name:"Astra International",sector:"Otomotif",price:4850,change:.67},
   {code:"AUTO",name:"Astra Otoparts",sector:"Otomotif",price:2340,change:1.13},
-  {code:"GJTL",name:"Gajah Tunggal",sector:"Otomotif",price:1160,change:-0.37},
+  {code:"GJTL",name:"Gajah Tunggal",sector:"Otomotif",price:1160,change:-.37},
 
   {code:"ANTM",name:"Aneka Tambang",sector:"Pertambangan",price:3180,change:2.41},
   {code:"PTBA",name:"Bukit Asam",sector:"Pertambangan",price:2860,change:1.74},
-  {code:"ADRO",name:"Adaro Energy",sector:"Pertambangan",price:2640,change:-0.65},
+  {code:"ADRO",name:"Adaro Energy",sector:"Pertambangan",price:2640,change:-.65},
   {code:"ITMG",name:"Indo Tambangraya",sector:"Pertambangan",price:28500,change:1.21},
-  {code:"INCO",name:"Vale Indonesia",sector:"Pertambangan",price:3850,change:0.48},
+  {code:"INCO",name:"Vale Indonesia",sector:"Pertambangan",price:3850,change:.48},
 
-  {code:"ICBP",name:"Indofood CBP",sector:"Konsumer",price:11250,change:0.28},
-  {code:"INDF",name:"Indofood Sukses Makmur",sector:"Konsumer",price:7350,change:-0.19},
+  {code:"ICBP",name:"Indofood CBP",sector:"Konsumer",price:11250,change:.28},
+  {code:"INDF",name:"Indofood Sukses Makmur",sector:"Konsumer",price:7350,change:-.19},
   {code:"UNVR",name:"Unilever Indonesia",sector:"Konsumer",price:1640,change:-1.12},
-  {code:"MYOR",name:"Mayora Indah",sector:"Konsumer",price:2420,change:0.36},
-  {code:"KLBF",name:"Kalbe Farma",sector:"Konsumer",price:1610,change:0.52},
+  {code:"MYOR",name:"Mayora Indah",sector:"Konsumer",price:2420,change:.36},
+  {code:"KLBF",name:"Kalbe Farma",sector:"Konsumer",price:1610,change:.52},
 
-  {code:"SMGR",name:"Semen Indonesia",sector:"Infrastruktur",price:3180,change:-0.44},
+  {code:"SMGR",name:"Semen Indonesia",sector:"Infrastruktur",price:3180,change:-.44},
   {code:"WIKA",name:"Wijaya Karya",sector:"Konstruksi",price:620,change:1.31},
-  {code:"WSKT",name:"Waskita Karya",sector:"Konstruksi",price:580,change:-0.72},
-  {code:"PTPP",name:"PP Properti",sector:"Konstruksi",price:850,change:0.61},
+  {code:"WSKT",name:"Waskita Karya",sector:"Konstruksi",price:580,change:-.72},
+  {code:"PTPP",name:"PP Properti",sector:"Konstruksi",price:850,change:.61},
 
   {code:"GOTO",name:"GoTo Gojek Tokopedia",sector:"Teknologi",price:72,change:2.94},
-  {code:"BUKA",name:"Bukalapak",sector:"Teknologi",price:118,change:-0.84},
-  {code:"EMTK",name:"Elang Mahkota Teknologi",sector:"Teknologi",price:520,change:0.75},
+  {code:"BUKA",name:"Bukalapak",sector:"Teknologi",price:118,change:-.84},
+  {code:"EMTK",name:"Elang Mahkota Teknologi",sector:"Teknologi",price:520,change:.75},
   {code:"DCII",name:"DCI Indonesia",sector:"Teknologi",price:85000,change:1.88},
 
-  {code:"JPFA",name:"JAPFA Comfeed",sector:"Agribisnis",price:1710,change:0.94},
+  {code:"JPFA",name:"JAPFA Comfeed",sector:"Agribisnis",price:1710,change:.94},
   {code:"CPIN",name:"Charoen Pokphand",sector:"Agribisnis",price:5650,change:1.17},
-  {code:"LSIP",name:"PP London Sumatra",sector:"Agribisnis",price:1010,change:-0.22},
+  {code:"LSIP",name:"PP London Sumatra",sector:"Agribisnis",price:1010,change:-.22},
 
-  {code:"BSDE",name:"Bumi Serpong Damai",sector:"Properti",price:1120,change:0.39},
-  {code:"PWON",name:"Pakuwon Jati",sector:"Properti",price:450,change:0.57},
+  {code:"BSDE",name:"Bumi Serpong Damai",sector:"Properti",price:1120,change:.39},
+  {code:"PWON",name:"Pakuwon Jati",sector:"Properti",price:450,change:.57},
 
   {code:"ACES",name:"Aspirasi Hidup Indonesia",sector:"Ritel",price:850,change:1.05},
-  {code:"MAPI",name:"Mitra Adiperkasa",sector:"Ritel",price:1490,change:0.91},
+  {code:"MAPI",name:"Mitra Adiperkasa",sector:"Ritel",price:1490,change:.91},
 
   {code:"BTC",name:"Bitcoin",sector:"Crypto",price:1750000000,change:2.72},
   {code:"ETH",name:"Ethereum",sector:"Crypto",price:65000000,change:1.86}
@@ -1038,49 +1373,59 @@ const stocks = [
 ];
 
 
-/* ==============================
+/* =====================================
    STATE
-============================== */
+===================================== */
 
-let state = JSON.parse(
-  localStorage.getItem("alfaInvestV6")
-) || {
+let state =
+  JSON.parse(
+    localStorage.getItem("alfaInvestV7")
+  ) || {
 
-  user:{
-    name:"Investor",
-    email:"investor@alfainvest.local"
-  },
+    user:{
+      name:"Investor",
+      email:"investor@alfainvest.local"
+    },
 
-  cash:10000000,
+    cash:10000000,
 
-  portfolio:{},
+    portfolio:{},
 
-  history:[],
+    history:[],
 
-  watchlist:["BBCA","BBRI","BMRI"],
+    watchlist:[
+      "BBCA",
+      "BBRI",
+      "BMRI"
+    ],
 
-  theme:"dark"
+    theme:"dark"
+  };
 
-};
+
+let selectedStock=null;
+let selectedAction="buy";
+let selectedDetail="BBCA";
+let toastTimer=null;
 
 
-/* ==============================
+/* =====================================
    SAVE
-============================== */
+===================================== */
 
 function save(){
 
   localStorage.setItem(
-    "alfaInvestV6",
+    "alfaInvestV7",
     JSON.stringify(state)
   );
 
 }
 
 
-/* ==============================
+/* =====================================
    FORMAT
-============================== */
+===================================== */
 
 function rupiah(value){
 
@@ -1105,61 +1450,100 @@ function number(value){
 }
 
 
-/* ==============================
-   STOCK PRICE
-============================== */
-
 function getStock(code){
 
   return stocks.find(
-    s => s.code === code
+    s=>s.code===code
   );
 
 }
 
 
-/* ==============================
+/* =====================================
    NAVIGATION
-============================== */
+===================================== */
 
 function showPage(id,button){
 
   document.querySelectorAll(".page")
-    .forEach(p=>p.classList.remove("active"));
+    .forEach(p=>
+      p.classList.remove("active")
+    );
 
-  const page=document.getElementById(id);
+  const page=
+    document.getElementById(id);
 
-  if(page) page.classList.add("active");
+  if(page)
+    page.classList.add("active");
+
 
   document.querySelectorAll(".nav button")
-    .forEach(b=>b.classList.remove("active"));
+    .forEach(b=>
+      b.classList.remove("active")
+    );
 
-  if(button) button.classList.add("active");
+  if(button)
+    button.classList.add("active");
+
 
   const titles={
     dashboard:"Dashboard",
     market:"Market",
+    detail:"Detail Saham",
     portfolio:"Portfolio",
     history:"Riwayat Transaksi",
     profile:"Profil"
   };
 
-  document.getElementById("pageTitle")
-    .textContent=titles[id] || "ALFA INVEST";
 
-  if(id==="dashboard") renderDashboard();
-  if(id==="market") renderMarket();
-  if(id==="portfolio") renderPortfolio();
-  if(id==="history") renderHistory();
-  if(id==="profile") renderProfile();
+  const subtitles={
+    dashboard:"Kelola portofolio investasi virtual Anda.",
+    market:"Pantau berbagai aset investasi.",
+    detail:"Analisis detail aset yang dipilih.",
+    portfolio:"Lihat seluruh kepemilikan investasi.",
+    history:"Riwayat transaksi akun simulasi.",
+    profile:"Informasi dan pengaturan akun."
+  };
+
+
+  document.getElementById("pageTitle")
+    .textContent=
+    titles[id] || "ALFA INVEST";
+
+
+  document.getElementById("pageSubtitle")
+    .textContent=
+    subtitles[id] || "";
+
+
+  if(id==="dashboard")
+    renderDashboard();
+
+  if(id==="market")
+    renderMarket();
+
+  if(id==="detail")
+    renderDetail(selectedDetail);
+
+  if(id==="portfolio")
+    renderPortfolio();
+
+  if(id==="history")
+    renderHistory();
+
+  if(id==="profile")
+    renderProfile();
 
 }
 
 
 function mobileNav(id,button){
 
-  document.querySelectorAll(".mobile-nav button")
-    .forEach(b=>b.classList.remove("active"));
+  document
+    .querySelectorAll(".mobile-nav button")
+    .forEach(b=>
+      b.classList.remove("active")
+    );
 
   button.classList.add("active");
 
@@ -1168,14 +1552,16 @@ function mobileNav(id,button){
 }
 
 
-/* ==============================
+/* =====================================
    SECTOR FILTER
-============================== */
+===================================== */
 
 function loadSectors(){
 
   const select=
-    document.getElementById("sectorFilter");
+    document.getElementById(
+      "sectorFilter"
+    );
 
   const sectors=[
     ...new Set(
@@ -1198,83 +1584,128 @@ function loadSectors(){
 }
 
 
-/* ==============================
+/* =====================================
    MARKET
-============================== */
+===================================== */
 
 function renderMarket(){
 
+  const input=
+    document.getElementById(
+      "searchInput"
+    );
+
+  const select=
+    document.getElementById(
+      "sectorFilter"
+    );
+
+  if(!input || !select)
+    return;
+
+
   const search=
-    document.getElementById("searchInput")
-      .value
-      .toLowerCase();
+    input.value.toLowerCase();
 
   const sector=
-    document.getElementById("sectorFilter")
-      .value;
+    select.value;
+
 
   const filtered=
     stocks.filter(stock=>{
 
-      const matchSearch=
-        stock.code.toLowerCase().includes(search) ||
-        stock.name.toLowerCase().includes(search);
+      const searchMatch=
+        stock.code
+          .toLowerCase()
+          .includes(search) ||
 
-      const matchSector=
+        stock.name
+          .toLowerCase()
+          .includes(search);
+
+
+      const sectorMatch=
         sector==="all" ||
         stock.sector===sector;
 
-      return matchSearch && matchSector;
+
+      return searchMatch &&
+             sectorMatch;
 
     });
 
-  document.getElementById("marketCount")
-    .textContent=
-    filtered.length+" saham";
+
+  document.getElementById(
+    "marketCount"
+  ).textContent=
+    filtered.length+" aset";
+
 
   const list=
-    document.getElementById("marketList");
+    document.getElementById(
+      "marketList"
+    );
+
 
   if(!filtered.length){
 
     list.innerHTML=`
-      <div class="card" style="text-align:center">
-        Saham tidak ditemukan.
+
+      <div class="card"
+        style="text-align:center">
+
+        Aset tidak ditemukan.
+
       </div>
+
     `;
 
     return;
+
   }
+
 
   list.innerHTML=
     filtered.map(stock=>{
 
       const watched=
-        state.watchlist.includes(stock.code);
+        state.watchlist
+          .includes(stock.code);
+
 
       return `
 
         <div class="stock">
 
-          <div class="stock-name">
+          <div
+            class="stock-name"
+            onclick="openDetail('${stock.code}')"
+            style="cursor:pointer">
 
             <div class="stock-logo">
-              ${stock.code.substring(0,3)}
+              ${stock.code.substring(0,4)}
             </div>
 
             <div>
-              <strong>${stock.code}</strong>
+
+              <strong>
+                ${stock.code}
+              </strong>
+
               <small>
                 ${stock.name}<br>
                 ${stock.sector}
               </small>
+
             </div>
 
           </div>
 
+
           <div class="price">
             ${rupiah(stock.price)}
           </div>
+
 
           <div class="change ${
             stock.change>=0
@@ -1288,24 +1719,38 @@ function renderMarket(){
               : "▼"
             }
 
-            ${Math.abs(stock.change).toFixed(2)}%
+            ${Math.abs(stock.change)
+              .toFixed(2)}%
 
           </div>
 
+
           <button
             class="btn"
-            onclick="openTrade('${stock.code}','buy')"
-          >
+            onclick="openTrade(
+              '${stock.code}',
+              'buy'
+            )">
+
             Beli
+
           </button>
+
 
           <button
             class="star ${
-              watched ? "active" : ""
+              watched
+              ? "active"
+              : ""
             }"
-            onclick="toggleWatch('${stock.code}')"
-          >
+            onclick="
+              toggleWatch(
+                '${stock.code}'
+              )
+            ">
+
             ★
+
           </button>
 
         </div>
@@ -1317,21 +1762,277 @@ function renderMarket(){
 }
 
 
-/* ==============================
-   WATCHLIST
-============================== */
+/* =====================================
+   DETAIL
+===================================== */
 
-function toggleWatch(code){
+function openDetail(code){
+
+  selectedDetail=code;
+
+  showPage("detail",null);
+
+}
+
+
+function renderDetail(code){
+
+  const stock=
+    getStock(code);
+
+  if(!stock)
+    return;
+
+
+  document.getElementById(
+    "detailLogo"
+  ).textContent=
+    stock.code;
+
+
+  document.getElementById(
+    "detailCode"
+  ).textContent=
+    stock.code;
+
+
+  document.getElementById(
+    "detailName"
+  ).textContent=
+    stock.name;
+
+
+  document.getElementById(
+    "detailPrice"
+  ).textContent=
+    rupiah(stock.price);
+
+
+  const change=
+    document.getElementById(
+      "detailChange"
+    );
+
+
+  change.className=
+    "detail-change "+
+    (
+      stock.change>=0
+      ? "green"
+      : "red"
+    );
+
+
+  change.textContent=
+    (
+      stock.change>=0
+      ? "▲ "
+      : "▼ "
+    )+
+    Math.abs(stock.change)
+      .toFixed(2)+
+    "%";
+
+
+  document.getElementById(
+    "detailSector"
+  ).textContent=
+    stock.sector;
+
+
+  document.getElementById(
+    "detailPriceInfo"
+  ).textContent=
+    rupiah(stock.price);
+
+
+  const changeInfo=
+    document.getElementById(
+      "detailChangeInfo"
+    );
+
+
+  changeInfo.className=
+    stock.change>=0
+    ? "green"
+    : "red";
+
+
+  changeInfo.textContent=
+    (stock.change>=0?"+":"-")+
+    Math.abs(stock.change)
+      .toFixed(2)+
+    "%";
+
+
+  renderDetailHolding(stock);
+
+  drawDetailChart(stock);
+
+}
+
+
+function renderDetailHolding(stock){
+
+  const box=
+    document.getElementById(
+      "detailHolding"
+    );
+
+  const status=
+    document.getElementById(
+      "detailHoldingStatus"
+    );
+
+
+  const holding=
+    state.portfolio[
+      stock.code
+    ];
+
+
+  if(!holding){
+
+    status.textContent=
+      "Belum memiliki saham";
+
+    box.innerHTML=`
+
+      <div style="
+        color:var(--muted);
+        line-height:1.6
+      ">
+
+        Anda belum memiliki
+        ${stock.code}.
+        Gunakan tombol
+        <strong>Beli</strong>
+        untuk menambahkan aset
+        ke portfolio.
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+
+  const value=
+    holding.lot*
+    100*
+    stock.price;
+
+
+  const invested=
+    holding.lot*
+    100*
+    holding.avg;
+
+
+  const pl=
+    value-invested;
+
+
+  status.textContent=
+    number(holding.lot)+
+    " lot";
+
+
+  box.innerHTML=`
+
+    <div style="
+      display:grid;
+      grid-template-columns:
+      repeat(4,1fr);
+      gap:12px;
+    ">
+
+      <div>
+        <small
+          style="color:var(--muted)">
+          Jumlah
+        </small>
+
+        <strong style="display:block">
+          ${number(holding.lot)} lot
+        </strong>
+      </div>
+
+
+      <div>
+        <small
+          style="color:var(--muted)">
+          Harga Rata-rata
+        </small>
+
+        <strong style="display:block">
+          ${rupiah(holding.avg)}
+        </strong>
+      </div>
+
+
+      <div>
+        <small
+          style="color:var(--muted)">
+          Nilai Sekarang
+        </small>
+
+        <strong style="display:block">
+          ${rupiah(value)}
+        </strong>
+      </div>
+
+
+      <div>
+
+        <small
+          style="color:var(--muted)">
+          Profit / Loss
+        </small>
+
+        <strong
+          class="${pl>=0?"green":"red"}"
+          style="display:block">
+
+          ${pl>=0?"+":""}
+          ${rupiah(pl)}
+
+        </strong>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+/* =====================================
+   DETAIL WATCHLIST
+===================================== */
+
+function toggleDetailWatch(){
+
+  const code=
+    selectedDetail;
 
   const index=
     state.watchlist.indexOf(code);
 
+
   if(index>=0){
 
-    state.watchlist.splice(index,1);
+    state.watchlist.splice(
+      index,
+      1
+    );
 
     toast(
-      code+" dihapus dari watchlist"
+      code+
+      " dihapus dari watchlist"
     );
 
   }else{
@@ -1339,10 +2040,54 @@ function toggleWatch(code){
     state.watchlist.push(code);
 
     toast(
-      code+" masuk watchlist"
+      code+
+      " masuk watchlist"
     );
 
   }
+
+
+  save();
+
+  renderDetail(code);
+  renderDashboard();
+
+}
+
+
+/* =====================================
+   WATCHLIST
+===================================== */
+
+function toggleWatch(code){
+
+  const index=
+    state.watchlist.indexOf(code);
+
+
+  if(index>=0){
+
+    state.watchlist.splice(
+      index,
+      1
+    );
+
+    toast(
+      code+
+      " dihapus dari watchlist"
+    );
+
+  }else{
+
+    state.watchlist.push(code);
+
+    toast(
+      code+
+      " masuk watchlist"
+    );
+
+  }
+
 
   save();
 
@@ -1359,83 +2104,102 @@ function renderWatchlist(){
       "watchlistDashboard"
     );
 
-  document.getElementById("watchCount")
-    .textContent=
-    state.watchlist.length+" saham";
+
+  document.getElementById(
+    "watchCount"
+  ).textContent=
+    state.watchlist.length+
+    " aset";
+
 
   if(!state.watchlist.length){
 
     box.innerHTML=`
+
       <p style="color:var(--muted)">
-        Belum ada saham watchlist.
+        Belum ada watchlist.
       </p>
+
     `;
 
     return;
+
   }
 
+
   box.innerHTML=
-    state.watchlist.map(code=>{
+    state.watchlist
+      .map(code=>{
 
-      const stock=getStock(code);
+        const stock=
+          getStock(code);
 
-      if(!stock) return "";
+        if(!stock)
+          return "";
 
-      return `
 
-        <div style="
-          display:flex;
-          justify-content:space-between;
-          align-items:center;
-          padding:12px 0;
-          border-bottom:1px solid var(--line);
-        ">
+        return `
 
-          <div>
-            <strong>${stock.code}</strong>
-            <small style="
-              display:block;
-              color:var(--muted)
-            ">
-              ${stock.name}
-            </small>
+          <div class="watch-item">
+
+            <div
+              onclick="openDetail('${code}')"
+              style="cursor:pointer">
+
+              <strong>
+                ${stock.code}
+              </strong>
+
+              <small
+                style="
+                display:block;
+                color:var(--muted);
+                margin-top:3px;
+                ">
+
+                ${stock.name}
+
+              </small>
+
+            </div>
+
+
+            <div
+              style="
+              text-align:right">
+
+              <strong>
+                ${rupiah(stock.price)}
+              </strong>
+
+              <small
+                class="${
+                  stock.change>=0
+                  ?"green"
+                  :"red"
+                }"
+                style="display:block">
+
+                ${stock.change>=0?"▲":"▼"}
+                ${Math.abs(stock.change)
+                  .toFixed(2)}%
+
+              </small>
+
+            </div>
+
           </div>
 
-          <div style="text-align:right">
+        `;
 
-            <strong>
-              ${rupiah(stock.price)}
-            </strong>
-
-            <small class="${
-              stock.change>=0
-              ?"green"
-              :"red"
-            }" style="display:block">
-
-              ${stock.change>=0?"▲":"▼"}
-              ${Math.abs(stock.change).toFixed(2)}%
-
-            </small>
-
-          </div>
-
-        </div>
-
-      `;
-
-    }).join("");
+      }).join("");
 
 }
 
 
-/* ==============================
+/* =====================================
    TRADE MODAL
-============================== */
-
-let selectedStock=null;
-let selectedAction="buy";
-
+===================================== */
 
 function openTrade(code,action){
 
@@ -1444,30 +2208,43 @@ function openTrade(code,action){
 
   selectedAction=action;
 
-  if(!selectedStock) return;
 
-  document.getElementById("tradeModal")
-    .classList.add("show");
+  if(!selectedStock)
+    return;
 
-  document.getElementById("modalTitle")
-    .textContent=
+
+  document.getElementById(
+    "tradeModal"
+  ).classList.add("show");
+
+
+  document.getElementById(
+    "modalTitle"
+  ).textContent=
     action==="buy"
     ? "Beli Saham"
     : "Jual Saham";
 
-  document.getElementById("modalStockName")
-    .textContent=
+
+  document.getElementById(
+    "modalStockName"
+  ).textContent=
     selectedStock.code+
     " — "+
     selectedStock.name;
 
-  document.getElementById("modalStockPrice")
-    .textContent=
+
+  document.getElementById(
+    "modalStockPrice"
+  ).textContent=
     rupiah(selectedStock.price)+
     " per lembar";
 
-  document.getElementById("lotInput")
-    .value=1;
+
+  document.getElementById(
+    "lotInput"
+  ).value=1;
+
 
   updateTradeTotal();
 
@@ -1476,63 +2253,79 @@ function openTrade(code,action){
 
 function closeModal(){
 
-  document.getElementById("tradeModal")
-    .classList.remove("show");
+  document.getElementById(
+    "tradeModal"
+  ).classList.remove("show");
 
 }
 
 
 function updateTradeTotal(){
 
-  if(!selectedStock) return;
+  if(!selectedStock)
+    return;
+
 
   const lot=
     Number(
-      document.getElementById("lotInput").value
+      document.getElementById(
+        "lotInput"
+      ).value
     ) || 0;
 
+
   const total=
-    lot *
-    100 *
+    lot*
+    100*
     selectedStock.price;
 
-  document.getElementById("tradeTotal")
-    .textContent=
+
+  document.getElementById(
+    "tradeTotal"
+  ).textContent=
     rupiah(total);
 
 }
 
 
-/* ==============================
+/* =====================================
    CONFIRM TRADE
-============================== */
+===================================== */
 
 function confirmTrade(action){
 
-  if(!selectedStock) return;
+  if(!selectedStock)
+    return;
+
 
   const lot=
     Number(
-      document.getElementById("lotInput").value
+      document.getElementById(
+        "lotInput"
+      ).value
     );
+
 
   if(!lot || lot<1){
 
-    toast("Jumlah lot tidak valid.");
+    toast(
+      "Jumlah lot tidak valid."
+    );
 
     return;
+
   }
+
 
   const code=
     selectedStock.code;
 
+
   const total=
-    lot *
-    100 *
+    lot*
+    100*
     selectedStock.price;
 
-
-  /* BUY */
 
   if(action==="buy"){
 
@@ -1543,9 +2336,12 @@ function confirmTrade(action){
       );
 
       return;
+
     }
 
+
     state.cash-=total;
+
 
     if(!state.portfolio[code]){
 
@@ -1556,23 +2352,32 @@ function confirmTrade(action){
 
     }
 
+
     const old=
       state.portfolio[code];
 
+
     const oldValue=
-      old.lot *
-      100 *
+      old.lot*
+      100*
       old.avg;
 
-    const newValue=
-      total;
 
     const totalLot=
-      old.lot+lot;
+      old.lot+
+      lot;
+
 
     old.avg=
-      (oldValue+newValue)/
-      (totalLot*100);
+      (
+        oldValue+
+        total
+      )/
+      (
+        totalLot*
+        100
+      );
+
 
     old.lot=
       totalLot;
@@ -1586,6 +2391,7 @@ function confirmTrade(action){
       total
     );
 
+
     toast(
       "Berhasil membeli "+
       lot+
@@ -1593,34 +2399,37 @@ function confirmTrade(action){
       code
     );
 
-  }
-
-
-  /* SELL */
-
-  else{
+  }else{
 
     const holding=
       state.portfolio[code];
 
-    if(!holding || holding.lot<lot){
+
+    if(
+      !holding ||
+      holding.lot<lot
+    ){
 
       toast(
         "Jumlah saham tidak mencukupi."
       );
 
       return;
+
     }
+
 
     state.cash+=total;
 
     holding.lot-=lot;
+
 
     if(holding.lot<=0){
 
       delete state.portfolio[code];
 
     }
+
 
     addHistory(
       "SELL",
@@ -1629,6 +2438,7 @@ function confirmTrade(action){
       selectedStock.price,
       total
     );
+
 
     toast(
       "Berhasil menjual "+
@@ -1649,9 +2459,9 @@ function confirmTrade(action){
 }
 
 
-/* ==============================
+/* =====================================
    HISTORY
-============================== */
+===================================== */
 
 function addHistory(
   action,
@@ -1663,9 +2473,8 @@ function addHistory(
 
   state.history.unshift({
 
-    time:new Date().toLocaleString(
-      "id-ID"
-    ),
+    time:new Date()
+      .toLocaleString("id-ID"),
 
     action,
     code,
@@ -1675,134 +2484,23 @@ function addHistory(
 
   });
 
+
   if(state.history.length>100){
 
     state.history=
-      state.history.slice(0,100);
+      state.history.slice(
+        0,
+        100
+      );
 
   }
 
 }
 
 
-/* ==============================
+/* =====================================
    PORTFOLIO
-============================== */
-
-function renderPortfolio(){
-
-  const table=
-    document.getElementById(
-      "portfolioTable"
-    );
-
-  const entries=
-    Object.entries(
-      state.portfolio
-    );
-
-  if(!entries.length){
-
-    table.innerHTML=`
-      <tr>
-        <td colspan="7"
-          style="
-          text-align:center;
-          color:var(--muted);
-          padding:30px
-          "
-        >
-          Belum ada saham.
-          Silakan beli saham di Market.
-        </td>
-      </tr>
-    `;
-
-    return;
-  }
-
-  table.innerHTML=
-    entries.map(([code,holding])=>{
-
-      const stock=
-        getStock(code);
-
-      if(!stock) return "";
-
-      const value=
-        holding.lot *
-        100 *
-        stock.price;
-
-      const invested=
-        holding.lot *
-        100 *
-        holding.avg;
-
-      const pl=
-        value-invested;
-
-      return `
-
-        <tr>
-
-          <td>
-            <strong>${code}</strong><br>
-            <small style="color:var(--muted)">
-              ${stock.name}
-            </small>
-          </td>
-
-          <td>
-            ${number(holding.lot)}
-          </td>
-
-          <td>
-            ${rupiah(holding.avg)}
-          </td>
-
-          <td>
-            ${rupiah(stock.price)}
-          </td>
-
-          <td>
-            ${rupiah(value)}
-          </td>
-
-          <td class="${pl>=0?"green":"red"}">
-            ${pl>=0?"+":""}${rupiah(pl)}
-          </td>
-
-          <td>
-
-            <button
-              class="btn"
-              onclick="openTrade('${code}','buy')"
-            >
-              Beli
-            </button>
-
-            <button
-              class="btn btn-red"
-              onclick="openTrade('${code}','sell')"
-            >
-              Jual
-            </button>
-
-          </td>
-
-        </tr>
-
-      `;
-
-    }).join("");
-
-}
-
-
-/* ==============================
-   DASHBOARD
-============================== */
+===================================== */
 
 function calculatePortfolio(){
 
@@ -1810,26 +2508,33 @@ function calculatePortfolio(){
 
   let invested=0;
 
+
   Object.entries(
     state.portfolio
-  ).forEach(([code,holding])=>{
+  ).forEach(
+    ([code,holding])=>{
 
-    const stock=
-      getStock(code);
+      const stock=
+        getStock(code);
 
-    if(!stock) return;
+      if(!stock)
+        return;
 
-    value+=
-      holding.lot*
-      100*
-      stock.price;
 
-    invested+=
-      holding.lot*
-      100*
-      holding.avg;
+      value+=
+        holding.lot*
+        100*
+        stock.price;
 
-  });
+
+      invested+=
+        holding.lot*
+        100*
+        holding.avg;
+
+    }
+  );
+
 
   return {
     value,
@@ -1840,52 +2545,234 @@ function calculatePortfolio(){
 }
 
 
+function renderPortfolio(){
+
+  const table=
+    document.getElementById(
+      "portfolioTable"
+    );
+
+
+  const entries=
+    Object.entries(
+      state.portfolio
+    );
+
+
+  if(!entries.length){
+
+    table.innerHTML=`
+
+      <tr>
+
+        <td
+          colspan="7"
+          style="
+          text-align:center;
+          color:var(--muted);
+          padding:30px">
+
+          Belum ada saham.
+          Silakan beli saham
+          di Market.
+
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
+
+
+  table.innerHTML=
+    entries.map(
+      ([code,holding])=>{
+
+        const stock=
+          getStock(code);
+
+        if(!stock)
+          return "";
+
+
+        const value=
+          holding.lot*
+          100*
+          stock.price;
+
+
+        const invested=
+          holding.lot*
+          100*
+          holding.avg;
+
+
+        const pl=
+          value-invested;
+
+
+        return `
+
+          <tr>
+
+            <td>
+
+              <strong>
+                ${code}
+              </strong>
+
+              <br>
+
+              <small
+                style="color:var(--muted)">
+
+                ${stock.name}
+
+              </small>
+
+            </td>
+
+
+            <td>
+              ${number(holding.lot)}
+            </td>
+
+
+            <td>
+              ${rupiah(holding.avg)}
+            </td>
+
+
+            <td>
+              ${rupiah(stock.price)}
+            </td>
+
+
+            <td>
+              ${rupiah(value)}
+            </td>
+
+
+            <td
+              class="${
+                pl>=0
+                ?"green"
+                :"red"
+              }">
+
+              ${pl>=0?"+":""}
+              ${rupiah(pl)}
+
+            </td>
+
+
+            <td>
+
+              <button
+                class="btn"
+                onclick="
+                  openTrade(
+                    '${code}',
+                    'buy'
+                  )
+                ">
+
+                Beli
+
+              </button>
+
+
+              <button
+                class="btn btn-red"
+                onclick="
+                  openTrade(
+                    '${code}',
+                    'sell'
+                  )
+                ">
+
+                Jual
+
+              </button>
+
+            </td>
+
+          </tr>
+
+        `;
+
+      }
+    ).join("");
+
+}
+
+
+/* =====================================
+   DASHBOARD
+===================================== */
+
 function renderDashboard(){
 
   const p=
     calculatePortfolio();
 
+
   const total=
-    state.cash+p.value;
+    state.cash+
+    p.value;
+
 
   document.getElementById(
     "cashBalance"
   ).textContent=
     rupiah(state.cash);
 
+
   document.getElementById(
     "portfolioValue"
   ).textContent=
     rupiah(p.value);
+
 
   document.getElementById(
     "totalAssets"
   ).textContent=
     rupiah(total);
 
+
   const pl=
     document.getElementById(
       "profitLoss"
     );
 
+
   pl.textContent=
     (p.pl>=0?"+":"")+
     rupiah(p.pl);
 
+
   pl.className=
     "stat-value "+
-    (p.pl>=0?"green":"red");
+    (
+      p.pl>=0
+      ? "green"
+      : "red"
+    );
+
 
   renderWatchlist();
 
-  drawChart();
+  drawDashboardChart();
 
 }
 
 
-/* ==============================
+/* =====================================
    HISTORY RENDER
-============================== */
+===================================== */
 
 function renderHistory(){
 
@@ -1894,78 +2781,96 @@ function renderHistory(){
       "historyTable"
     );
 
+
   document.getElementById(
     "historyCount"
   ).textContent=
     state.history.length+
     " transaksi";
 
+
   if(!state.history.length){
 
     table.innerHTML=`
+
       <tr>
-        <td colspan="6"
+
+        <td
+          colspan="6"
           style="
           text-align:center;
           color:var(--muted);
-          padding:30px
-          "
-        >
+          padding:30px">
+
           Belum ada transaksi.
+
         </td>
+
       </tr>
+
     `;
 
     return;
+
   }
 
+
   table.innerHTML=
-    state.history.map(item=>`
+    state.history.map(
+      item=>`
 
-      <tr>
+        <tr>
 
-        <td>${item.time}</td>
+          <td>
+            ${item.time}
+          </td>
 
-        <td class="${
-          item.action==="BUY"
-          ?"green"
-          :"red"
-        }">
+          <td
+            class="${
+              item.action==="BUY"
+              ?"green"
+              :"red"
+            }">
 
-          <strong>
-            ${item.action==="BUY"
-              ?"BELI"
-              :"JUAL"}
-          </strong>
+            <strong>
+              ${
+                item.action==="BUY"
+                ?"BELI"
+                :"JUAL"
+              }
+            </strong>
 
-        </td>
+          </td>
 
-        <td>
-          <strong>${item.code}</strong>
-        </td>
+          <td>
+            <strong>
+              ${item.code}
+            </strong>
+          </td>
 
-        <td>
-          ${number(item.lot)}
-        </td>
+          <td>
+            ${number(item.lot)}
+          </td>
 
-        <td>
-          ${rupiah(item.price)}
-        </td>
+          <td>
+            ${rupiah(item.price)}
+          </td>
 
-        <td>
-          ${rupiah(item.total)}
-        </td>
+          <td>
+            ${rupiah(item.total)}
+          </td>
 
-      </tr>
+        </tr>
 
-    `).join("");
+      `
+    ).join("");
 
 }
 
 
-/* ==============================
+/* =====================================
    PROFILE
-============================== */
+===================================== */
 
 function renderProfile(){
 
@@ -1973,6 +2878,7 @@ function renderProfile(){
     "profileName"
   ).textContent=
     state.user.name;
+
 
   document.getElementById(
     "profileEmail"
@@ -1982,16 +2888,13 @@ function renderProfile(){
 }
 
 
-/* ==============================
-   HEADER
-============================== */
-
 function renderHeader(){
 
   document.getElementById(
     "userName"
   ).textContent=
     state.user.name;
+
 
   document.getElementById(
     "avatar"
@@ -2003,102 +2906,198 @@ function renderHeader(){
 }
 
 
-/* ==============================
-   CHART
-============================== */
+/* =====================================
+   DASHBOARD CHART
+===================================== */
 
-function drawChart(){
+function drawDashboardChart(){
+
+  drawChartOnCanvas(
+    "dashboardChart",
+    250
+  );
+
+}
+
+
+function drawDetailChart(stock){
+
+  drawChartOnCanvas(
+    "detailChart",
+    290,
+    stock
+  );
+
+}
+
+
+function drawChartOnCanvas(
+  canvasId,
+  height,
+  stock=null
+){
 
   const canvas=
-    document.getElementById("chart");
+    document.getElementById(
+      canvasId
+    );
 
-  if(!canvas) return;
+
+  if(!canvas)
+    return;
+
 
   const ctx=
     canvas.getContext("2d");
 
+
   const rect=
     canvas.getBoundingClientRect();
+
 
   const dpr=
     window.devicePixelRatio || 1;
 
+
   canvas.width=
     rect.width*dpr;
 
+
   canvas.height=
-    250*dpr;
+    height*dpr;
 
-  ctx.scale(dpr,dpr);
 
-  const w=rect.width;
-  const h=250;
+  ctx.scale(
+    dpr,
+    dpr
+  );
 
-  ctx.clearRect(0,0,w,h);
 
-  /* grid */
+  const w=
+    rect.width;
+
+  const h=
+    height;
+
+
+  ctx.clearRect(
+    0,
+    0,
+    w,
+    h
+  );
+
+
+  /* GRID */
 
   ctx.strokeStyle=
     "rgba(255,255,255,.07)";
 
   ctx.lineWidth=1;
 
-  for(let i=1;i<5;i++){
+
+  for(
+    let i=1;
+    i<5;
+    i++
+  ){
 
     const y=
-      (h/5)*i;
+      h/5*i;
 
     ctx.beginPath();
 
-    ctx.moveTo(0,y);
+    ctx.moveTo(
+      0,
+      y
+    );
 
-    ctx.lineTo(w,y);
+    ctx.lineTo(
+      w,
+      y
+    );
 
     ctx.stroke();
 
   }
 
-  /* generate simulation */
+
+  /* DATA */
 
   const points=[];
 
-  let value=50;
 
-  for(let i=0;i<30;i++){
+  let value=
+    stock
+    ? stock.price
+    : 100;
 
-    value+=
-      (Math.random()-.42)*4;
+
+  for(
+    let i=0;
+    i<36;
+    i++
+  ){
+
+    value*=
+      1+
+      (
+        Math.random()-.47
+      )/
+      100;
+
 
     points.push(value);
 
   }
 
+
   const min=
     Math.min(...points);
+
 
   const max=
     Math.max(...points);
 
+
   const range=
     max-min || 1;
 
+
   ctx.beginPath();
 
-  points.forEach((v,i)=>{
 
-    const x=
-      (i/(points.length-1))*w;
+  points.forEach(
+    (v,i)=>{
 
-    const y=
-      h-30-
-      ((v-min)/range)*(h-60);
+      const x=
+        i/
+        (
+          points.length-1
+        )*
+        w;
 
-    if(i===0)
-      ctx.moveTo(x,y);
-    else
-      ctx.lineTo(x,y);
 
-  });
+      const y=
+        h-
+        35-
+        (
+          (v-min)/
+          range
+        )*
+        (
+          h-70
+        );
+
+
+      if(i===0)
+        ctx.moveTo(x,y);
+      else
+        ctx.lineTo(x,y);
+
+    }
+  );
+
 
   ctx.strokeStyle=
     "#20d889";
@@ -2107,39 +3106,54 @@ function drawChart(){
 
   ctx.stroke();
 
-  /* fill */
+
+  /* FILL */
 
   const gradient=
     ctx.createLinearGradient(
-      0,0,0,h
+      0,
+      0,
+      0,
+      h
     );
+
 
   gradient.addColorStop(
     0,
     "rgba(32,216,137,.20)"
   );
 
+
   gradient.addColorStop(
     1,
     "rgba(32,216,137,0)"
   );
 
-  ctx.lineTo(w,h);
 
-  ctx.lineTo(0,h);
+  ctx.lineTo(
+    w,
+    h
+  );
+
+  ctx.lineTo(
+    0,
+    h
+  );
 
   ctx.closePath();
 
-  ctx.fillStyle=gradient;
+
+  ctx.fillStyle=
+    gradient;
 
   ctx.fill();
 
 }
 
 
-/* ==============================
+/* =====================================
    THEME
-============================== */
+===================================== */
 
 function toggleTheme(){
 
@@ -2147,18 +3161,19 @@ function toggleTheme(){
 
     state.theme="light";
 
+
     document.body.style.setProperty(
       "--bg",
       "#f3f6fa"
     );
 
     document.body.style.setProperty(
-      "--card",
+      "--panel",
       "#ffffff"
     );
 
     document.body.style.setProperty(
-      "--card2",
+      "--panel2",
       "#ffffff"
     );
 
@@ -2176,18 +3191,19 @@ function toggleTheme(){
 
     state.theme="dark";
 
+
     document.body.style.setProperty(
       "--bg",
       "#07111f"
     );
 
     document.body.style.setProperty(
-      "--card",
+      "--panel",
       "#0d1b2d"
     );
 
     document.body.style.setProperty(
-      "--card2",
+      "--panel2",
       "#102238"
     );
 
@@ -2203,14 +3219,15 @@ function toggleTheme(){
 
   }
 
+
   save();
 
 }
 
 
-/* ==============================
+/* =====================================
    RESET
-============================== */
+===================================== */
 
 function resetSimulation(){
 
@@ -2219,7 +3236,10 @@ function resetSimulation(){
       "Reset semua saldo, portfolio dan riwayat?"
     );
 
-  if(!ok) return;
+
+  if(!ok)
+    return;
+
 
   state={
 
@@ -2244,6 +3264,7 @@ function resetSimulation(){
 
   };
 
+
   save();
 
   location.reload();
@@ -2251,78 +3272,121 @@ function resetSimulation(){
 }
 
 
-/* ==============================
+/* =====================================
    TOAST
-============================== */
-
-let toastTimer;
+===================================== */
 
 function toast(message){
 
   const box=
-    document.getElementById("toast");
+    document.getElementById(
+      "toast"
+    );
 
-  box.textContent=message;
 
-  box.classList.add("show");
+  box.textContent=
+    message;
 
-  clearTimeout(toastTimer);
+
+  box.classList.add(
+    "show"
+  );
+
+
+  clearTimeout(
+    toastTimer
+  );
+
 
   toastTimer=
-    setTimeout(()=>{
-      box.classList.remove("show");
-    },2500);
+    setTimeout(
+      ()=>{
+        box.classList.remove(
+          "show"
+        );
+      },
+      2500
+    );
 
 }
 
 
-/* ==============================
-   SIMULATE PRICE MOVEMENT
-============================== */
+/* =====================================
+   PRICE SIMULATION
+===================================== */
 
 setInterval(()=>{
 
-  stocks.forEach(stock=>{
+  stocks.forEach(
+    stock=>{
 
-    const movement=
-      (Math.random()-.5)*0.7;
+      const movement=
+        (
+          Math.random()-.5
+        )*
+        .7;
 
-    stock.price=
-      Math.max(
-        1,
-        stock.price*
-        (1+movement/100)
-      );
 
-    stock.change=
-      movement;
+      stock.price=
+        Math.max(
+          1,
+          stock.price*
+          (
+            1+
+            movement/100
+          )
+        );
 
-  });
 
-  const activePage=
+      stock.change=
+        movement;
+
+    }
+  );
+
+
+  const active=
     document.querySelector(
       ".page.active"
     );
 
-  if(activePage){
 
-    if(activePage.id==="market")
-      renderMarket();
+  if(!active)
+    return;
 
-    if(activePage.id==="dashboard")
-      renderDashboard();
 
-    if(activePage.id==="portfolio")
-      renderPortfolio();
+  if(
+    active.id==="market"
+  )
+    renderMarket();
 
-  }
+
+  if(
+    active.id==="dashboard"
+  )
+    renderDashboard();
+
+
+  if(
+    active.id==="portfolio"
+  )
+    renderPortfolio();
+
+
+  if(
+    active.id==="detail"
+  )
+    renderDetail(
+      selectedDetail
+    );
+
 
 },15000);
 
 
-/* ==============================
+/* =====================================
    RENDER ALL
-============================== */
+===================================== */
 
 function renderAll(){
 
@@ -2331,6 +3395,10 @@ function renderAll(){
   renderDashboard();
 
   renderMarket();
+
+  renderDetail(
+    selectedDetail
+  );
 
   renderPortfolio();
 
@@ -2341,17 +3409,35 @@ function renderAll(){
 }
 
 
-/* ==============================
+/* =====================================
    START
-============================== */
+===================================== */
 
 loadSectors();
 
 renderAll();
 
+
 window.addEventListener(
   "resize",
-  drawChart
+  ()=>{
+    drawDashboardChart();
+
+    const active=
+      document.querySelector(
+        ".page.active"
+      );
+
+    if(
+      active &&
+      active.id==="detail"
+    ){
+      drawDetailChart(
+        getStock(selectedDetail)
+      );
+    }
+
+  }
 );
 
 </script>
